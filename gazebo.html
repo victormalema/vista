@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Stack Gallery</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    font-family:Arial, sans-serif;
+
+    /* PREMIUM DARK GRADIENT */
+    background:
+    radial-gradient(circle at 20% 30%, #1a1a2e 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, #16213e 0%, transparent 40%),
+    linear-gradient(135deg, #020202, #050505, #0a0a0f);
+}
+
+/* GALLERY */
+.gallery{
+    position:relative;
+    width:100vw;
+    height:100vh;
+    perspective:2000px;
+}
+
+/* SLIDES */
+.page{
+    position:absolute;
+    width:100vw;
+    height:100vh;
+    border-radius:0;
+    overflow:hidden;
+    cursor:pointer;
+
+    transition:
+    transform 0.9s cubic-bezier(.2,.8,.2,1),
+    opacity 0.9s ease,
+    filter 0.9s ease;
+
+    box-shadow:
+    0 40px 80px rgba(0,0,0,0.9);
+}
+
+/* IMAGE */
+.page img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* ACTIVE FULL SCREEN */
+.page.active{
+
+    transform:
+    translateX(0)
+    scale(1)
+    rotateY(0deg);
+
+    opacity:1;
+    filter:brightness(1);
+
+    z-index:10;
+}
+
+/* NEXT RIGHT */
+.page.next{
+
+    transform:
+    translateX(60%)
+    scale(0.7)
+    rotateY(-25deg);
+
+    opacity:0.7;
+    filter:brightness(0.7) blur(1px);
+
+    z-index:9;
+}
+
+/* THIRD */
+.page.after{
+
+    transform:
+    translateX(75%)
+    scale(0.55)
+    rotateY(-35deg);
+
+    opacity:0.5;
+    filter:brightness(0.5) blur(2px);
+
+    z-index:8;
+}
+
+/* REST */
+.page.hidden{
+
+    transform:
+    translateX(90%)
+    scale(0.4)
+    rotateY(-45deg);
+
+    opacity:0.3;
+    filter:brightness(0.3) blur(3px);
+
+    z-index:7;
+}
+
+/* RESPONSIVE MOBILE */
+@media(max-width:768px){
+
+.page.next{
+    transform:translateX(50%) scale(0.75);
+}
+
+.page.after{
+    transform:translateX(65%) scale(0.6);
+}
+
+.page.hidden{
+    transform:translateX(80%) scale(0.45);
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="gallery">
+
+<div class="page"><img src="4.jpg"></div>
+<div class="page"><img src="6.jpg"></div>
+<div class="page"><img src="9.jpg"></div>
+<div class="page"><img src="11.jpg"></div>
+<div class="page"><img src="15.jpg"></div>
+<div class="page"><img src="17.jpg"></div>
+<div class="page"><img src="19.jpg"></div>
+<div class="page"><img src="23.jpg"></div>
+
+</div>
+
+<script>
+
+const pages = document.querySelectorAll(".page");
+let index = 0;
+
+function updateStack(){
+
+    pages.forEach((page,i)=>{
+
+        page.classList.remove(
+        "active","next","after","hidden"
+        );
+
+        if(i===index)
+            page.classList.add("active");
+
+        else if(i===index+1)
+            page.classList.add("next");
+
+        else if(i===index+2)
+            page.classList.add("after");
+
+        else if(i>index+2)
+            page.classList.add("hidden");
+
+    });
+
+}
+
+updateStack();
+
+/* SCROLL CONTROL */
+window.addEventListener("wheel",(e)=>{
+
+    if(e.deltaY>0 && index < pages.length-1)
+        index++;
+
+    else if(e.deltaY<0 && index>0)
+        index--;
+
+    updateStack();
+
+});
+
+/* TOUCH SUPPORT */
+let startX=0;
+
+window.addEventListener("touchstart",(e)=>{
+    startX=e.touches[0].clientX;
+});
+
+window.addEventListener("touchend",(e)=>{
+
+    let endX=e.changedTouches[0].clientX;
+
+    if(startX-endX>50 && index < pages.length-1)
+        index++;
+
+    if(endX-startX>50 && index>0)
+        index--;
+
+    updateStack();
+
+});
+
+/* CLICK SELECT */
+pages.forEach((page,i)=>{
+
+    page.addEventListener("click",()=>{
+        index=i;
+        updateStack();
+    });
+
+});
+
+</script>
+
+</body>
+</html>

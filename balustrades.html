@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VITRUM | classic glass balustrades</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f1ed;
+            color: #2e2b27;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* classic serif for headings */
+        h1, h2, h3, .serif {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 2.5rem;
+        }
+
+        /* header — timeless */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0 2rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.9rem;
+            letter-spacing: 2px;
+            font-family: 'Playfair Display', serif;
+            color: #3c3630;
+        }
+        .logo span {
+            font-weight: 300;
+            color: #9b8e82;
+            font-size: 1.6rem;
+            margin-left: 6px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 3rem;
+            font-weight: 400;
+            color: #4d4740;
+        }
+        .nav a {
+            text-decoration: none;
+            color: inherit;
+            font-size: 1rem;
+            transition: color 0.2s;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 4px;
+        }
+        .nav a:hover {
+            color: #886e58;
+            border-bottom-color: #cbbaa9;
+        }
+
+        /* intro */
+        .intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem auto;
+        }
+        .intro h2 {
+            font-size: 2.8rem;
+            font-weight: 400;
+            color: #312d28;
+            margin-bottom: 1rem;
+        }
+        .intro p {
+            font-size: 1.1rem;
+            color: #6b6259;
+            font-style: italic;
+        }
+
+        /* ===== GRID SECTION (images emerge from bottom) ===== */
+        .grid-section {
+            margin: 4rem 0 6rem 0;
+        }
+
+        .grid-title {
+            text-align: center;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            margin-bottom: 3rem;
+            color: #4d443b;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            perspective: 800px;
+        }
+
+        /* each grid item — hidden initially, then animated from bottom */
+        .grid-item {
+            background: #fffcf8;
+            box-shadow: 0 20px 30px -15px rgba(58, 48, 38, 0.15);
+            cursor: pointer;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #ece5dd;
+            opacity: 0;  /* hidden until scroll reveal */
+            transform: translateY(60px) scale(0.98);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s, opacity 0.5s;
+        }
+
+        .grid-item.revealed {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .grid-item:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 28px 38px -18px #534a41;
+        }
+
+        .grid-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid #e8dfd5;
+            transition: filter 0.4s;
+        }
+        .grid-item:hover .grid-img {
+            filter: brightness(1.02);
+        }
+
+        .grid-caption {
+            padding: 1.2rem 1.2rem 1.5rem 1.2rem;
+            background: #ffffff;
+        }
+        .grid-caption h3 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #3a332d;
+            margin-bottom: 0.25rem;
+        }
+        .grid-caption p {
+            color: #82786f;
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== MAGNIFIER OVERLAY (appears when image selected) ===== */
+        .magnifier-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 12, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s;
+            padding: 2rem;
+        }
+
+        .magnifier-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .magnifier-card {
+            display: flex;
+            max-width: 1200px;
+            width: 90%;
+            max-height: 80vh;
+            background: #fffcf7;
+            box-shadow: 0 40px 60px 10px rgba(0,0,0,0.4);
+            border-radius: 4px;
+            overflow: hidden;
+            animation: scaleIn 0.4s ease;
+            border: 1px solid #e7ddd2;
+        }
+
+        @keyframes scaleIn {
+            0% { opacity: 0; transform: scale(0.92); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .magnifier-image {
+            flex: 1.2;
+            overflow: hidden;
+            background: #c7bcaf;
+        }
+        .magnifier-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .magnifier-text {
+            flex: 0.9;
+            padding: 3rem 2.5rem;
+            overflow-y: auto;
+            background: #fffcf7;
+        }
+
+        .magnifier-text h2 {
+            font-size: 2.8rem;
+            font-weight: 400;
+            color: #2e2822;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .magnifier-text .category {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #aa9a89;
+            margin-bottom: 1.8rem;
+        }
+        .magnifier-text p {
+            font-size: 1.1rem;
+            color: #4f4942;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+        .magnifier-text .detail-line {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.2rem 0;
+            color: #7b6f64;
+            border-bottom: 1px dashed #ddd6ce;
+            padding-bottom: 0.8rem;
+        }
+        .magnifier-text .detail-line i {
+            width: 28px;
+            color: #b09a86;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.3);
+            color: white;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: 0.2s;
+            z-index: 1010;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .close-btn:hover {
+            background: rgba(255,255,255,0.3);
+            color: #222;
+            transform: scale(1.05);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1000px) {
+            .image-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .magnifier-card {
+                flex-direction: column;
+                max-height: 90vh;
+            }
+            .magnifier-image {
+                height: 280px;
+            }
+            .magnifier-text {
+                padding: 2rem 1.8rem;
+            }
+            .magnifier-text h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .nav {
+                gap: 1.8rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .intro h2 {
+                font-size: 2.2rem;
+            }
+            .magnifier-text {
+                padding: 1.5rem 1.2rem;
+            }
+            .close-btn {
+                top: 16px;
+                right: 16px;
+            }
+        }
+
+        /* footer */
+        .footer {
+            margin-top: 5rem;
+            padding: 2rem 0;
+            border-top: 1px solid #ddd7cf;
+            display: flex;
+            justify-content: space-between;
+            color: #7a7168;
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer a {
+            color: #5d5349;
+            text-decoration: none;
+            margin-left: 2rem;
+        }
+        .footer a:hover {
+            color: #ac927d;
+        }
+
+        /* animation helper */
+        .reveal-image {
+            transition: transform 0.5s, opacity 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- header -->
+        <div class="header">
+            <div class="logo">Vista<span>| glass balustrades</span></div>
+            <div class="nav">
+                <a href="#">contact +254</a>
+                <a href="#">email</a>
+                
+            </div>
+        </div>
+
+        <!-- intro -->
+        <div class="intro">
+            <h2>light · transparency · refinement</h2>
+            <p>Timeless glass balustrades that frame views without interrupting them. Each piece is a study in clarity and proportion.</p>
+        </div>
+
+        <!-- image grid section (images emerge from bottom) -->
+        <div class="grid-section">
+            <div class="grid-title">— selected works —</div>
+            <div class="image-grid" id="imageGrid">
+                <!-- item 1 -->
+                <div class="grid-item" data-index="0">
+                    <img src="d1f0fb79126e8121151dc60e765845a8.jpg" alt="Glass balustrade stair" class="grid-img">
+                    <div class="grid-caption">
+                        <h3>floating stair</h3>
+                        <p>frameless 15mm tempered glass · brass shoe</p>
+                    </div>
+                </div>
+                <!-- item 2 -->
+                <div class="grid-item" data-index="1">
+                    <img src="8cc86233139a5670bb160e4592f16aca.jpg" alt="Terrace balustrade" class="grid-img">
+                    <div class="grid-caption">
+                        <h3>panoramic terrace</h3>
+                        <p>low‑iron glass · stainless steel standoffs</p>
+                    </div>
+                </div>
+                <!-- item 3 -->
+                <div class="grid-item" data-index="2">
+                    <img src="887b21c5dcd5fc001e160c46ffb53eee.jpg" alt="Pool glass fence" class="grid-img">
+                    <div class="grid-caption">
+                        <h3>infinity edge pool</h3>
+                        <p>12mm laminated · polished clamps</p>
+                    </div>
+                </div>
+                <!-- item 4 -->
+                <div class="grid-item" data-index="3">
+                    <img src="9a10c9b33b4ba5d8fc8ce662ae556f3e.jpg" alt="Glass balcony" class="grid-img">
+                    <div class="grid-caption">
+                        <h3>cantilever balcony</h3>
+                        <p>structural glass · integrated LED</p>
+                    </div>
+                </div>
+                <!-- item 5 -->
+                <div class="grid-item" data-index="4">
+                    <img src="fb82152cfa3c6862759b7c084c834921.jpg" alt="Interior partition" class="grid-img">
+                    <div class="grid-caption">
+                        <h3>interior partition</h3>
+                        <p>sandblasted detail · oak handrail</p>
+                    </div>
+                </div>
+                <!-- item 6 -->
+                <div class="grid-item" data-index="5">
+                    <img src="d8da5a4be4a44314843a46c94f35f4d1.jpg" alt="Staircase glass" class="grid-img">
+                    <div class="grid-caption">
+                        <h3>spiral harmony</h3>
+                        <p>curved glass · brass inlay</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer -->
+        <div class="footer">
+            <div>© vitrum 2025 — established 1898</div>
+            <div>
+                <a href="#">craft</a>
+                <a href="#">press</a>
+                <a href="#">visit</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAGNIFIER OVERLAY (hidden initially) -->
+    <div class="magnifier-overlay" id="magnifierOverlay">
+        <button class="close-btn" id="closeMagnifier"><i class="fa-solid fa-xmark"></i></button>
+        <div class="magnifier-card" id="magnifierCard">
+            <!-- filled dynamically via js -->
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // DATA for magnifier – matches grid items (index order)
+            const projects = [
+                {
+                    title: "floating stair",
+                    category: "frameless system",
+                    description: "Minimalist stair balustrade in a beach house. The 15mm thermally toughened glass is set into a recessed brass channel, creating a seemingly unsupported walkway.",
+                    dimensions: "15mm clear tempered · brass base shoe",
+                    client: "private residence, malibu",
+                    year: "2024"
+                },
+                {
+                    title: "panoramic terrace",
+                    category: "low‑iron glass",
+                    description: "Floor‑to‑ceiling glass panels with point‑fixed stainless steel standoffs. Uninterrupted views of the hills, with a hand‑polished finish that catches the light.",
+                    dimensions: "12mm low‑iron · ø60mm standoffs",
+                    client: "hilltop villa, tuscany",
+                    year: "2023"
+                },
+                {
+                    title: "infinity edge pool",
+                    category: "laminated safety",
+                    description: "Glass balustrade surrounding an infinity pool. Laminated glass with a subtle anti‑reflective coating to reduce glare while maintaining safety.",
+                    dimensions: "12mm laminated · polished clamps",
+                    client: "oceanfront estate, mallorca",
+                    year: "2024"
+                },
+                {
+                    title: "cantilever balcony",
+                    category: "structural glass",
+                    description: "A daring cantilevered balcony with glass parapet. Integrated LED strip at the base gives the illusion of floating at night.",
+                    dimensions: "17mm heat‑soaked glass · inox shoe",
+                    client: "penthouse, london",
+                    year: "2023"
+                },
+                {
+                    title: "interior partition",
+                    category: "sandblasted detail",
+                    description: "Divides living and study areas while preserving light. A sandblasted band offers privacy; solid oak handrail adds warmth.",
+                    dimensions: "10mm toughened · sandblasted stripe",
+                    client: "chelsea townhouse",
+                    year: "2022"
+                },
+                {
+                    title: "spiral harmony",
+                    category: "curved glass",
+                    description: "Custom‑bent glass following the spiral staircase. Brass inlay at the base echoes the vintage details of the renovated building.",
+                    dimensions: "curved 10mm laminated · brass foot",
+                    client: "historic building, paris",
+                    year: "2024"
+                }
+            ];
+
+            // Get elements
+            const gridItems = document.querySelectorAll('.grid-item');
+            const overlay = document.getElementById('magnifierOverlay');
+            const closeBtn = document.getElementById('closeMagnifier');
+            const magnifierCard = document.getElementById('magnifierCard');
+
+            // Intersection Observer — images slide from bottom when scrolled into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        // you can unobserve after reveal if you want
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' }); // slight offset for elegance
+
+            gridItems.forEach(item => {
+                observer.observe(item);
+            });
+
+            // Function to open magnifier with selected project
+            function openMagnifier(index) {
+                const proj = projects[index];
+                // Get corresponding image source from grid item (to keep consistency)
+                const imgSrc = gridItems[index].querySelector('.grid-img').src;
+
+                // Build magnifier content
+                magnifierCard.innerHTML = `
+                    <div class="magnifier-image">
+                        <img src="${imgSrc}" alt="${proj.title}">
+                    </div>
+                    <div class="magnifier-text">
+                        <h2>${proj.title}</h2>
+                        <div class="category">${proj.category}</div>
+                        <p>${proj.description}</p>
+                        <div class="detail-line"><i class="fa-regular fa-gem"></i> ${proj.dimensions}</div>
+                        <div class="detail-line"><i class="fa-regular fa-building"></i> ${proj.client}</div>
+                        <div class="detail-line"><i class="fa-regular fa-calendar"></i> completed ${proj.year}</div>
+                    </div>
+                `;
+
+                // Show overlay
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // prevent scrolling behind
+            }
+
+            // Add click event to each grid item
+            gridItems.forEach((item, idx) => {
+                item.addEventListener('click', () => {
+                    openMagnifier(idx);
+                });
+            });
+
+            // Close magnifier
+            function closeMagnifier() {
+                overlay.classList.remove('active');
+                document.body.style.overflow = ''; // restore scrolling
+            }
+
+            closeBtn.addEventListener('click', closeMagnifier);
+
+            // Click outside the card to close (optional)
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    closeMagnifier();
+                }
+            });
+
+            // Keyboard escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                    closeMagnifier();
+                }
+            });
+
+            // if any images fail to load, keep fallback, but unsplash urls are fine.
+        })();
+    </script>
+
+    <!-- tiny style to ensure images show nicely -->
+    <style>
+        .grid-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        @media (max-width: 700px) {
+            .grid-img {
+                height: 260px;
+            }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luxury Overlap Scroll</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+  background:#000;
+}
+
+/* SECTION BASE */
+.section{
+  position:relative;
+  height:100vh;
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+}
+
+/* OVERLAP EFFECT */
+.section:not(:first-child){
+  margin-top:-120px;
+}
+
+/* DARK OVERLAY */
+.section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+}
+
+/* CONTENT */
+.content{
+  position:relative;
+  z-index:2;
+  max-width:1100px;
+  padding:60px;
+  backdrop-filter:blur(10px);
+  background:rgba(0,0,0,0.35);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:20px;
+  color:#fff;
+  text-align:left;
+  animation:fadeUp 1.2s ease;
+}
+
+.big-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(40px,6vw,100px);
+  line-height:1.05;
+  margin-bottom:20px;
+}
+
+.small-text{
+  font-size:clamp(16px,1.2vw,20px);
+  line-height:1.8;
+  max-width:600px;
+  opacity:0.9;
+}
+
+.side-number{
+  position:absolute;
+  top:40px;
+  right:60px;
+  font-size:14px;
+  letter-spacing:4px;
+  color:#fff;
+  opacity:0.6;
+  z-index:2;
+}
+
+/* ANIMATION */
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(40px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .content{
+    padding:30px;
+  }
+
+  .big-title{
+    font-size:40px;
+  }
+
+  .section{
+    background-attachment:scroll;
+  }
+}
+
+</style>
+</head>
+<body>
+
+
+<!-- SECTION 1 -->
+<section class="section" style="background-image:url('eff9c1ec2e25b567b3eb4604baf81a94.jpg');">
+  <div class="side-number">01</div>
+  <div class="content">
+    <div class="big-title">
+      Architectural<br>Transparency
+    </div>
+    <div class="small-text">
+      Glass curtain systems that reflect ambition.
+      Designed for executive environments that demand
+      bold structure and refined minimalism.
+    </div>
+  </div>
+</section>
+
+
+<!-- SECTION 2 -->
+<section class="section" style="background-image:url('f1356bd7f633c5b7e648ad9a4dedba8a.jpg');">
+  <div class="side-number">02</div>
+  <div class="content">
+    <div class="big-title">
+      Seamless<br>Elevation
+    </div>
+    <div class="small-text">
+      Precision engineered panels integrate
+      performance, insulation, and design —
+      transforming buildings into modern icons.
+    </div>
+  </div>
+</section>
+
+
+<!-- SECTION 3 -->
+<section class="section" style="background-image:url('7e26ba9b62d2d6002689f9cef224eb2a.jpg');">
+  <div class="side-number">03</div>
+  <div class="content">
+    <div class="big-title">
+      Executive<br>Presence
+    </div>
+    <div class="small-text">
+      Bold lines. Clean finishes. 
+      Architecture that communicates confidence
+      before a single word is spoken.
+    </div>
+  </div>
+</section>
+
+
+<!-- SECTION 4 -->
+<section class="section" style="background-image:url('92455fd97de616cc5b463ba4f66e9ba5.jpg');">
+  <div class="side-number">04</div>
+  <div class="content">
+    <div class="big-title">
+      Built For<br>Modern Vision
+    </div>
+    <div class="small-text">
+      From commercial towers to high-end residences,
+      our glass systems define contemporary skyline identity.
+    </div>
+  </div>
+</section>
+
+
+</body>
+</html>
