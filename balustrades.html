@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VITRUM | classic glass balustrades</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>aether carport | cinematic background video</title>
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsl,wght@14..32,200..600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -18,592 +18,969 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f1ed;
-            color: #2e2b27;
-            line-height: 1.5;
+            background-color: #0a0a14;
+            line-height: 1.4;
             overflow-x: hidden;
         }
 
-        /* classic serif for headings */
-        h1, h2, h3, .serif {
-            font-family: 'Playfair Display', serif;
-            font-weight: 400;
+        html {
+            scroll-behavior: smooth;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 2rem 2.5rem;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 5;
         }
 
-        /* header — timeless */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 0 2rem 0;
-            border-bottom: 1px solid rgba(0,0,0,0.08);
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            font-size: 1.9rem;
-            letter-spacing: 2px;
-            font-family: 'Playfair Display', serif;
-            color: #3c3630;
-        }
-        .logo span {
-            font-weight: 300;
-            color: #9b8e82;
-            font-size: 1.6rem;
-            margin-left: 6px;
-        }
-
-        .nav {
-            display: flex;
-            gap: 3rem;
-            font-weight: 400;
-            color: #4d4740;
-        }
-        .nav a {
-            text-decoration: none;
-            color: inherit;
-            font-size: 1rem;
-            transition: color 0.2s;
-            border-bottom: 1px solid transparent;
-            padding-bottom: 4px;
-        }
-        .nav a:hover {
-            color: #886e58;
-            border-bottom-color: #cbbaa9;
-        }
-
-        /* intro */
-        .intro {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 4rem auto;
-        }
-        .intro h2 {
-            font-size: 2.8rem;
-            font-weight: 400;
-            color: #312d28;
-            margin-bottom: 1rem;
-        }
-        .intro p {
-            font-size: 1.1rem;
-            color: #6b6259;
-            font-style: italic;
-        }
-
-        /* ===== GRID SECTION (images emerge from bottom) ===== */
-        .grid-section {
-            margin: 4rem 0 6rem 0;
-        }
-
-        .grid-title {
-            text-align: center;
-            font-size: 2rem;
-            letter-spacing: 2px;
-            margin-bottom: 3rem;
-            color: #4d443b;
-            text-transform: uppercase;
-            font-weight: 300;
-        }
-
-        .image-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            perspective: 800px;
-        }
-
-        /* each grid item — hidden initially, then animated from bottom */
-        .grid-item {
-            background: #fffcf8;
-            box-shadow: 0 20px 30px -15px rgba(58, 48, 38, 0.15);
-            cursor: pointer;
-            border-radius: 4px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid #ece5dd;
-            opacity: 0;  /* hidden until scroll reveal */
-            transform: translateY(60px) scale(0.98);
-            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s, opacity 0.5s;
-        }
-
-        .grid-item.revealed {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        .grid-item:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 28px 38px -18px #534a41;
-        }
-
-        .grid-img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            display: block;
-            border-bottom: 1px solid #e8dfd5;
-            transition: filter 0.4s;
-        }
-        .grid-item:hover .grid-img {
-            filter: brightness(1.02);
-        }
-
-        .grid-caption {
-            padding: 1.2rem 1.2rem 1.5rem 1.2rem;
-            background: #ffffff;
-        }
-        .grid-caption h3 {
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: #3a332d;
-            margin-bottom: 0.25rem;
-        }
-        .grid-caption p {
-            color: #82786f;
-            font-size: 0.9rem;
-            letter-spacing: 0.3px;
-        }
-
-        /* ===== MAGNIFIER OVERLAY (appears when image selected) ===== */
-        .magnifier-overlay {
+        /* ===== BACKGROUND VIDEO - ORIGINAL QUALITY & SPEED ===== */
+        .video-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(15, 15, 12, 0.7);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            /* No speed modification - plays at original speed */
+            /* High quality rendering */
+            image-rendering: auto;
+        }
+
+        /* subtle overlay for text readability - lighter touch to preserve video quality */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 20, 0.4);
+            backdrop-filter: blur(2px);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* ===== RETURN TO HOME BUTTON - TOP LEFT ===== */
+        .return-home {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 450;
             display: flex;
             align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s;
-            padding: 2rem;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px -6px rgba(0,0,0,0.2);
         }
 
-        .magnifier-overlay.active {
-            opacity: 1;
-            visibility: visible;
+        .return-home:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1a1a16;
+            transform: translateY(-3px);
+            border-color: transparent;
         }
 
-        .magnifier-card {
+        .return-home i {
+            font-size: 1rem;
+        }
+
+        /* ===== HEADER ===== */
+        .navbar {
             display: flex;
-            max-width: 1200px;
-            width: 90%;
-            max-height: 80vh;
-            background: #fffcf7;
-            box-shadow: 0 40px 60px 10px rgba(0,0,0,0.4);
-            border-radius: 4px;
-            overflow: hidden;
-            animation: scaleIn 0.4s ease;
-            border: 1px solid #e7ddd2;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-weight: 350;
+            font-size: 1.8rem;
+            letter-spacing: -0.03em;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .logo span {
+            font-weight: 250;
+            color: #e0d7cf;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3.2rem;
+            font-weight: 380;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: color 0.2s, transform 0.2s;
+            display: inline-block;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
+
+        .nav-links a:hover {
+            color: #f0e3d8;
+            transform: translateY(-2px);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeSlideUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
         @keyframes scaleIn {
-            0% { opacity: 0; transform: scale(0.92); }
+            0% { opacity: 0; transform: scale(0.95); }
             100% { opacity: 1; transform: scale(1); }
         }
 
-        .magnifier-image {
-            flex: 1.2;
-            overflow: hidden;
-            background: #c7bcaf;
+        /* ===== HERO - REMOVED THE SIDE PANEL (hero-image removed) ===== */
+        .hero {
+            margin: 4rem 0 6rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
         }
-        .magnifier-image img {
+
+        .hero-text {
+            opacity: 0;
+            animation: fadeSlideUp 0.8s 0.1s forwards;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            font-weight: 350;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            text-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-text h1 .light {
+            font-weight: 250;
+            color: #f0e5db;
             display: block;
+            font-size: 3.5rem;
+            margin-top: 0.2rem;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.5);
         }
 
-        .magnifier-text {
-            flex: 0.9;
-            padding: 3rem 2.5rem;
-            overflow-y: auto;
-            background: #fffcf7;
+        .hero-text p {
+            margin: 2rem 0 2.8rem 0;
+            font-size: 1.2rem;
+            color: #ffffff;
+            max-width: 85%;
+            font-weight: 320;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            line-height: 1.5;
         }
 
-        .magnifier-text h2 {
-            font-size: 2.8rem;
-            font-weight: 400;
-            color: #2e2822;
-            margin-bottom: 1rem;
-            line-height: 1.2;
+        .btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            padding: 1rem 3rem;
+            font-size: 0.95rem;
+            font-weight: 450;
+            letter-spacing: 0.3px;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border-radius: 40px;
+            box-shadow: 0 8px 20px -6px rgba(0,0,0,0.2);
         }
-        .magnifier-text .category {
-            font-size: 0.85rem;
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: transparent;
+            color: #1a1a16;
+            transform: scale(1.02);
+            box-shadow: 0 15px 25px -8px rgba(0,0,0,0.3);
+        }
+
+        /* ===== SECTION HEADING ===== */
+        .section-heading {
+            text-align: center;
+            margin: 5rem 0 3rem 0;
+            opacity: 0;
+            animation: fadeSlideUp 0.7s 0.2s forwards;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-heading .sub {
+            color: #f0e5db;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #aa9a89;
-            margin-bottom: 1.8rem;
-        }
-        .magnifier-text p {
-            font-size: 1.1rem;
-            color: #4f4942;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-            font-weight: 300;
-        }
-        .magnifier-text .detail-line {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin: 1.2rem 0;
-            color: #7b6f64;
-            border-bottom: 1px dashed #ddd6ce;
-            padding-bottom: 0.8rem;
-        }
-        .magnifier-text .detail-line i {
-            width: 28px;
-            color: #b09a86;
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            margin-bottom: 0.7rem;
+            font-weight: 400;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.4);
         }
 
-        .close-btn {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            background: rgba(0,0,0,0.3);
-            color: white;
-            border: none;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            font-size: 1.8rem;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.3);
-            transition: 0.2s;
-            z-index: 1010;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .section-heading h2 {
+            font-weight: 300;
+            font-size: 2.6rem;
+            color: #ffffff;
+            text-shadow: 0 3px 16px rgba(0,0,0,0.4);
         }
-        .close-btn:hover {
-            background: rgba(255,255,255,0.3);
-            color: #222;
+
+        /* ===== FEATURE GRID - 3x3 WITH IMAGES ===== */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3.5rem 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 38px;
+            box-shadow: 0 15px 30px -12px rgba(0,0,0,0.25);
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            border: 1px solid rgba(255,255,255,0.45);
+            opacity: 0;
+            animation: scaleIn 0.6s forwards;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 280px;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.15s; }
+        .feature-card:nth-child(3) { animation-delay: 0.2s; }
+        .feature-card:nth-child(4) { animation-delay: 0.25s; }
+        .feature-card:nth-child(5) { animation-delay: 0.3s; }
+        .feature-card:nth-child(6) { animation-delay: 0.35s; }
+        .feature-card:nth-child(7) { animation-delay: 0.4s; }
+        .feature-card:nth-child(8) { animation-delay: 0.45s; }
+        .feature-card:nth-child(9) { animation-delay: 0.5s; }
+
+        .feature-card:hover {
+            transform: translateY(-12px) scale(1.01);
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(255,255,255,0.8);
+            box-shadow: 0 30px 40px -16px rgba(0,0,0,0.35);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            border-top-left-radius: 38px;
+            border-top-right-radius: 38px;
+        }
+
+        .feature-card:hover .card-image {
             transform: scale(1.05);
         }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1000px) {
-            .image-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .magnifier-card {
-                flex-direction: column;
-                max-height: 90vh;
-            }
-            .magnifier-image {
-                height: 280px;
-            }
-            .magnifier-text {
-                padding: 2rem 1.8rem;
-            }
-            .magnifier-text h2 {
-                font-size: 2.2rem;
-            }
+        .card-content {
+            padding: 1.5rem 1.5rem 1rem 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
-        @media (max-width: 650px) {
-            .image-grid {
-                grid-template-columns: 1fr;
-            }
-            .header {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-            .nav {
-                gap: 1.8rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .intro h2 {
-                font-size: 2.2rem;
-            }
-            .magnifier-text {
-                padding: 1.5rem 1.2rem;
-            }
-            .close-btn {
-                top: 16px;
-                right: 16px;
-            }
+        .feature-card h3 {
+            font-weight: 480;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #1f1e1b;
         }
 
-        /* footer */
+        .feature-card p {
+            color: #3b3a36;
+            font-weight: 350;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-arrow {
+            margin-top: auto;
+            text-align: center;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .page-arrow a {
+            color: #4f4b44;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.2rem;
+            transition: all 0.3s ease;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .page-arrow a:hover {
+            color: #000;
+            transform: translateY(3px);
+        }
+
+        .page-arrow i {
+            font-size: 1rem;
+            animation: bounceArrow 2s infinite;
+        }
+
+        @keyframes bounceArrow {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(5px); }
+            60% { transform: translateY(3px); }
+        }
+
+        /* ===== EXPANDED VIEW MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+            animation: scaleIn 0.3s ease;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: white;
+            color: black;
+            transform: rotate(90deg);
+        }
+
+        .modal-caption {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            color: white;
+            font-size: 1rem;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* ===== DOWN ARROW BETWEEN SECTIONS ===== */
+        .section-divider {
+            text-align: center;
+            margin: 2rem 0 4rem 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-divider .down-arrow {
+            color: white;
+            font-size: 1.5rem;
+            animation: bounceArrow 2s infinite;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .section-divider .down-arrow:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(5px);
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: rgba(30, 30, 28, 0.55);
+            backdrop-filter: blur(16px);
+            border-radius: 58px;
+            padding: 4rem 3.5rem;
+            margin: 6rem 0 4rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            opacity: 0;
+            animation: fadeSlideUp 0.8s 0.2s forwards;
+            box-shadow: 0 20px 40px -14px rgba(0,0,0,0.4);
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact-details h3 {
+            font-weight: 340;
+            font-size: 2.2rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+        }
+
+        .contact-details p {
+            color: #f0e7de;
+            margin-bottom: 2.2rem;
+            max-width: 80%;
+            font-weight: 330;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+        }
+
+        .contact-line {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+            color: #ffffff;
+            transition: transform 0.2s;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+        }
+
+        .contact-line:hover {
+            transform: translateX(6px);
+            color: #f0e2d4;
+        }
+
+        .contact-line i {
+            width: 26px;
+            color: #e7d9cd;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem 0 0.6rem 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1.5px solid rgba(255,255,255,0.45);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            outline: none;
+            transition: border 0.2s;
+            color: white;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-bottom-color: #ffffff;
+        }
+
+        .contact-form textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .btn-submit {
+            background: rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.35);
+            padding: 0.9rem 3rem;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 480;
+            color: #ffffff;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 0.5rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .btn-submit:hover {
+            background: #ffffff;
+            border-color: #ffffff;
+            color: #1a1a16;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -10px #0000004d;
+        }
+
+        /* ===== FOOTER ===== */
         .footer {
-            margin-top: 5rem;
-            padding: 2rem 0;
-            border-top: 1px solid #ddd7cf;
+            padding: 2.5rem 0 3rem 0;
+            color: #ffffffd9;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
             display: flex;
             justify-content: space-between;
-            color: #7a7168;
-            font-size: 0.9rem;
             flex-wrap: wrap;
             gap: 1rem;
-        }
-        .footer a {
-            color: #5d5349;
-            text-decoration: none;
-            margin-left: 2rem;
-        }
-        .footer a:hover {
-            color: #ac927d;
+            animation: fadeIn 1.2s;
+            position: relative;
+            z-index: 10;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.3);
         }
 
-        /* animation helper */
-        .reveal-image {
-            transition: transform 0.5s, opacity 0.5s;
+        .footer a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: #f0dacb;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1050px) {
+            .return-home {
+                top: 20px;
+                left: 20px;
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .modal-close {
+                top: 10px;
+                right: 10px;
+            }
+
+            .modal-caption {
+                bottom: 10px;
+            }
+        }
+
+        @media (max-width: 950px) {
+            .hero {
+                max-width: 100%;
+            }
+            .hero-text p {
+                max-width: 100%;
+            }
+            .contact-section {
+                grid-template-columns: 1fr;
+                padding: 2.5rem;
+            }
+            .contact-details p {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding-top: 70px;
+            }
+            .nav-links {
+                gap: 2rem;
+            }
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            .hero-text h1 .light {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            .hero-text h1 .light {
+                font-size: 2rem;
+            }
+            .section-heading h2 {
+                font-size: 2rem;
+            }
+            .container {
+                padding: 0 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- BACKGROUND VIDEO - ORIGINAL QUALITY & SPEED -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline disablePictureInPicture>
+            <!-- Premium 4K-ready architecture/cinematic drone footage - plays at original speed, original quality -->
+            <source src="8996268-uhd_3840_2160_30fps.mp4" type="video/mp4">
+            <!-- High quality alternative: modern architecture establishing shot -->
+            <source src="https://cdn.pixabay.com/video/2021/09/04/88355-595626257_large.mp4" type="video/mp4">
+            <!-- Fallback text -->
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <!-- Light overlay for text readability while preserving video clarity -->
+    <div class="video-overlay"></div>
+
+    <!-- RETURN TO HOME BUTTON - TOP LEFT -->
+    <a href="homepage.html" class="return-home">
+        <i class="fas fa-arrow-left"></i> return home
+    </a>
+
+    <!-- EXPANDED VIEW MODAL -->
+    <div class="modal-overlay" id="imageModal">
+        <div class="modal-content">
+            <img class="modal-image" id="modalImage" src="" alt="Expanded view">
+            <div class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="modal-caption" id="modalCaption"></div>
+        </div>
+    </div>
+
     <div class="container">
         <!-- header -->
-        <div class="header">
-            <div class="logo">Vista<span>| glass balustrades</span></div>
-            <div class="nav">
-                <a href="#">contact +254</a>
-                <a href="#">email</a>
-                
+        <nav class="navbar">
+            <div class="logo">Vista <span>| gazebo</span></div>
+            <div class="nav-links">
+                <a href="#">works</a>
+                <a href="#">contact</a>
+            </div>
+        </nav>
+
+        <!-- hero - side panel completely removed -->
+        <div class="hero">
+            <div class="hero-text">
+                <h1>architecture for <br>the automobile <span class="light">minimal & sheltering</span></h1>
+                <p>A modern carport becomes a bridge between landscape and home. Honest materials, refined proportions, and a quiet presence.</p>
+                <a href="#" class="btn">design portfolio <i class="fa-regular fa-arrow-right" style="margin-left: 8px;"></i></a>
             </div>
         </div>
 
-        <!-- intro -->
-        <div class="intro">
-            <h2>light · transparency · refinement</h2>
-            <p>Timeless glass balustrades that frame views without interrupting them. Each piece is a study in clarity and proportion.</p>
+        <!-- Down arrow to indicate more content below -->
+        <div class="section-divider">
+            <div class="down-arrow" onclick="document.getElementById('grid-section').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-chevron-down"></i>
+            </div>
         </div>
 
-        <!-- image grid section (images emerge from bottom) -->
-        <div class="grid-section">
-            <div class="grid-title">— selected works —</div>
-            <div class="image-grid" id="imageGrid">
-                <!-- item 1 -->
-                <div class="grid-item" data-index="0">
-                    <img src="d1f0fb79126e8121151dc60e765845a8.jpg" alt="Glass balustrade stair" class="grid-img">
-                    <div class="grid-caption">
-                        <h3>floating stair</h3>
-                        <p>frameless 15mm tempered glass · brass shoe</p>
+        <!-- feature cards - 3x3 grid with images -->
+        <div id="grid-section" class="section-heading">
+            <div class="sub">our portfolio</div>
+            <h2>design gallery</h2>
+        </div>
+
+        <div class="feature-grid">
+            <!-- Row 1 -->
+            <div class="feature-card" onclick="openModal('5.jpg', 'Aurora White — Modern Wood Carport')">
+                <img class="card-image" src="5.jpg" alt="Modern Wood Carport">
+                <div class="card-content">
+                    <h3>Aurora white</h3>
+                    <p>Sleek lines & natural timber</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
                     </div>
                 </div>
-                <!-- item 2 -->
-                <div class="grid-item" data-index="1">
-                    <img src="8cc86233139a5670bb160e4592f16aca.jpg" alt="Terrace balustrade" class="grid-img">
-                    <div class="grid-caption">
-                        <h3>panoramic terrace</h3>
-                        <p>low‑iron glass · stainless steel standoffs</p>
+            </div>
+            <div class="feature-card" onclick="openModal('7.jpg', 'Obsidian Black — Weathered Timber Structure')">
+                <img class="card-image" src="7.jpg" alt="Weathered Timber">
+                <div class="card-content">
+                    <h3>Obsidian black</h3>
+                    <p>Bold contrast & durability</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
                     </div>
                 </div>
-                <!-- item 3 -->
-                <div class="grid-item" data-index="2">
-                    <img src="887b21c5dcd5fc001e160c46ffb53eee.jpg" alt="Pool glass fence" class="grid-img">
-                    <div class="grid-caption">
-                        <h3>infinity edge pool</h3>
-                        <p>12mm laminated · polished clamps</p>
+            </div>
+            <div class="feature-card" onclick="openModal('10.jpg', 'Glass Horizon — Filtered Light Canopy')">
+                <img class="card-image" src="10.jpg" alt="Filtered Light">
+                <div class="card-content">
+                    <h3>Glass horizon</h3>
+                    <p>Transparent elegance</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
                     </div>
                 </div>
-                <!-- item 4 -->
-                <div class="grid-item" data-index="3">
-                    <img src="9a10c9b33b4ba5d8fc8ce662ae556f3e.jpg" alt="Glass balcony" class="grid-img">
-                    <div class="grid-caption">
-                        <h3>cantilever balcony</h3>
-                        <p>structural glass · integrated LED</p>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="feature-card" onclick="openModal('12.jpg', 'Stratos Open — Sustainable Design')">
+                <img class="card-image" src="12.jpg" alt="Sustainable Design">
+                <div class="card-content">
+                    <h3>stratos open</h3>
+                    <p>Eco-friendly & airy</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
                     </div>
                 </div>
-                <!-- item 5 -->
-                <div class="grid-item" data-index="4">
-                    <img src="fb82152cfa3c6862759b7c084c834921.jpg" alt="Interior partition" class="grid-img">
-                    <div class="grid-caption">
-                        <h3>interior partition</h3>
-                        <p>sandblasted detail · oak handrail</p>
+            </div>
+            <div class="feature-card" onclick="openModal('14.jpg', 'Timber Luxe — Modular System')">
+                <img class="card-image" src="14.jpg" alt="Modular System">
+                <div class="card-content">
+                    <h3>Timber luxe</h3>
+                    <p>Premium craftsmanship</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
                     </div>
                 </div>
-                <!-- item 6 -->
-                <div class="grid-item" data-index="5">
-                    <img src="d8da5a4be4a44314843a46c94f35f4d1.jpg" alt="Staircase glass" class="grid-img">
-                    <div class="grid-caption">
-                        <h3>spiral harmony</h3>
-                        <p>curved glass · brass inlay</p>
+            </div>
+            <div class="feature-card" onclick="openModal('16.jpg', 'Zenith Hybrid — Green Integration')">
+                <img class="card-image" src="16.jpg" alt="Green Integration">
+                <div class="card-content">
+                    <h3>Zenith Hybrid</h3>
+                    <p>Nature meets modern</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
                     </div>
                 </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="feature-card" onclick="openModal('18.jpg', 'Noir Glass — Rapid Assembly')">
+                <img class="card-image" src="18.jpg" alt="Rapid Assembly">
+                <div class="card-content">
+                    <h3>Noir glass</h3>
+                    <p>Minimalist steel frame</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" onclick="openModal('20.jpg', 'Polar Cube — Premium Materials')">
+                <img class="card-image" src="20.jpg" alt="Premium Materials">
+                <div class="card-content">
+                    <h3>Polar cube</h3>
+                    <p>Crisp & sculptural</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" onclick="openModal('23.jpg', 'Onyx Edge — Integrated Lighting')">
+                <img class="card-image" src="23.jpg" alt="Integrated Lighting">
+                <div class="card-content">
+                    <h3>Onyx edge</h3>
+                    <p>Sophisticated illumination</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Down arrow before contact section -->
+        <div class="section-divider">
+            <div class="down-arrow" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+
+        <!-- contact section -->
+        <div class="contact-section" id="contact">
+            <div class="contact-details">
+                <h3>discuss your<br>bespoke gazebo.</h3>
+                <p>We collaborate with architects and homeowners to design structures that feel both modern and timeless.</p>
+                <div class="contact-line">
+                    <i class="fa-regular fa-envelope"></i> <span>orizonvista@gmail.com</span>
+                </div>
+                <div class="contact-line">
+                    <i class="fa-regular fa-pen-to-square"></i> <span>+254 116589060</span>
+                </div>
+            </div>
+            <div class="contact-form">
+                <input type="text" placeholder="name">
+                <input type="email" placeholder="email">
+                <textarea placeholder="tell us about your space ..."></textarea>
+                <button class="btn-submit">send inquiry →</button>
+            </div>
+        </div>
+
+        <!-- Down arrow before footer -->
+        <div class="section-divider">
+            <div class="down-arrow" onclick="document.querySelector('.footer').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-chevron-down"></i>
             </div>
         </div>
 
         <!-- footer -->
         <div class="footer">
-            <div>© vitrum 2025 — established 1898</div>
+            <div> vista gazebos — 2025</div>
             <div>
-                <a href="#">craft</a>
-                <a href="#">press</a>
-                <a href="#">visit</a>
+                <a href="#">instagram</a>
+                <a href="#">journal</a>
             </div>
         </div>
     </div>
 
-    <!-- MAGNIFIER OVERLAY (hidden initially) -->
-    <div class="magnifier-overlay" id="magnifierOverlay">
-        <button class="close-btn" id="closeMagnifier"><i class="fa-solid fa-xmark"></i></button>
-        <div class="magnifier-card" id="magnifierCard">
-            <!-- filled dynamically via js -->
-        </div>
-    </div>
-
     <script>
-        (function() {
-            // DATA for magnifier – matches grid items (index order)
-            const projects = [
-                {
-                    title: "floating stair",
-                    category: "frameless system",
-                    description: "Minimalist stair balustrade in a beach house. The 15mm thermally toughened glass is set into a recessed brass channel, creating a seemingly unsupported walkway.",
-                    dimensions: "15mm clear tempered · brass base shoe",
-                    client: "private residence, malibu",
-                    year: "2024"
-                },
-                {
-                    title: "panoramic terrace",
-                    category: "low‑iron glass",
-                    description: "Floor‑to‑ceiling glass panels with point‑fixed stainless steel standoffs. Uninterrupted views of the hills, with a hand‑polished finish that catches the light.",
-                    dimensions: "12mm low‑iron · ø60mm standoffs",
-                    client: "hilltop villa, tuscany",
-                    year: "2023"
-                },
-                {
-                    title: "infinity edge pool",
-                    category: "laminated safety",
-                    description: "Glass balustrade surrounding an infinity pool. Laminated glass with a subtle anti‑reflective coating to reduce glare while maintaining safety.",
-                    dimensions: "12mm laminated · polished clamps",
-                    client: "oceanfront estate, mallorca",
-                    year: "2024"
-                },
-                {
-                    title: "cantilever balcony",
-                    category: "structural glass",
-                    description: "A daring cantilevered balcony with glass parapet. Integrated LED strip at the base gives the illusion of floating at night.",
-                    dimensions: "17mm heat‑soaked glass · inox shoe",
-                    client: "penthouse, london",
-                    year: "2023"
-                },
-                {
-                    title: "interior partition",
-                    category: "sandblasted detail",
-                    description: "Divides living and study areas while preserving light. A sandblasted band offers privacy; solid oak handrail adds warmth.",
-                    dimensions: "10mm toughened · sandblasted stripe",
-                    client: "chelsea townhouse",
-                    year: "2022"
-                },
-                {
-                    title: "spiral harmony",
-                    category: "curved glass",
-                    description: "Custom‑bent glass following the spiral staircase. Brass inlay at the base echoes the vintage details of the renovated building.",
-                    dimensions: "curved 10mm laminated · brass foot",
-                    client: "historic building, paris",
-                    year: "2024"
-                }
-            ];
+        // Modal functions for image expansion
+        function openModal(imageSrc, caption = "Design detail") {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalCaption = document.getElementById('modalCaption');
+            
+            modalImage.src = imageSrc;
+            modalCaption.textContent = caption;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
 
-            // Get elements
-            const gridItems = document.querySelectorAll('.grid-item');
-            const overlay = document.getElementById('magnifierOverlay');
-            const closeBtn = document.getElementById('closeMagnifier');
-            const magnifierCard = document.getElementById('magnifierCard');
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
 
-            // Intersection Observer — images slide from bottom when scrolled into view
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('revealed');
-                        // you can unobserve after reveal if you want
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' }); // slight offset for elegance
-
-            gridItems.forEach(item => {
-                observer.observe(item);
-            });
-
-            // Function to open magnifier with selected project
-            function openMagnifier(index) {
-                const proj = projects[index];
-                // Get corresponding image source from grid item (to keep consistency)
-                const imgSrc = gridItems[index].querySelector('.grid-img').src;
-
-                // Build magnifier content
-                magnifierCard.innerHTML = `
-                    <div class="magnifier-image">
-                        <img src="${imgSrc}" alt="${proj.title}">
-                    </div>
-                    <div class="magnifier-text">
-                        <h2>${proj.title}</h2>
-                        <div class="category">${proj.category}</div>
-                        <p>${proj.description}</p>
-                        <div class="detail-line"><i class="fa-regular fa-gem"></i> ${proj.dimensions}</div>
-                        <div class="detail-line"><i class="fa-regular fa-building"></i> ${proj.client}</div>
-                        <div class="detail-line"><i class="fa-regular fa-calendar"></i> completed ${proj.year}</div>
-                    </div>
-                `;
-
-                // Show overlay
-                overlay.classList.add('active');
-                document.body.style.overflow = 'hidden'; // prevent scrolling behind
+        // Close modal when clicking outside the image
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
             }
+        });
 
-            // Add click event to each grid item
-            gridItems.forEach((item, idx) => {
-                item.addEventListener('click', () => {
-                    openMagnifier(idx);
-                });
-            });
-
-            // Close magnifier
-            function closeMagnifier() {
-                overlay.classList.remove('active');
-                document.body.style.overflow = ''; // restore scrolling
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
             }
+        });
 
-            closeBtn.addEventListener('click', closeMagnifier);
-
-            // Click outside the card to close (optional)
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) {
-                    closeMagnifier();
-                }
+        // Prevent card click when clicking on arrow links inside cards
+        document.querySelectorAll('.page-arrow a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.stopPropagation();
             });
+        });
 
-            // Keyboard escape
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && overlay.classList.contains('active')) {
-                    closeMagnifier();
-                }
-            });
-
-            // if any images fail to load, keep fallback, but unsplash urls are fine.
-        })();
+        // Ensure video plays at original speed and quality (no modifications applied)
+        const bgVideo = document.querySelector('.video-background video');
+        if (bgVideo) {
+            // Set playback rate to 1.0 explicitly to ensure original speed
+            bgVideo.playbackRate = 1.0;
+            // Ensure highest quality by letting the browser choose optimal source
+            bgVideo.play().catch(e => console.log("Autoplay prevented, user interaction may be needed"));
+        }
     </script>
-
-    <!-- tiny style to ensure images show nicely -->
-    <style>
-        .grid-img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-        }
-        @media (max-width: 700px) {
-            .grid-img {
-                height: 260px;
-            }
-        }
-    </style>
 </body>
 </html>

@@ -1,230 +1,987 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premium Stack Gallery</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>aether carport | cinematic background video</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsl,wght@14..32,200..600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a14;
+            line-height: 1.4;
+            overflow-x: hidden;
+        }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+        html {
+            scroll-behavior: smooth;
+        }
 
-body{
-    height:100vh;
-    overflow:hidden;
-    font-family:Arial, sans-serif;
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 5;
+        }
 
-    /* PREMIUM DARK GRADIENT */
-    background:
-    radial-gradient(circle at 20% 30%, #1a1a2e 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, #16213e 0%, transparent 40%),
-    linear-gradient(135deg, #020202, #050505, #0a0a0f);
-}
+        /* ===== BACKGROUND VIDEO - ORIGINAL QUALITY & SPEED ===== */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
 
-/* GALLERY */
-.gallery{
-    position:relative;
-    width:100vw;
-    height:100vh;
-    perspective:2000px;
-}
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            /* No speed modification - plays at original speed */
+            /* High quality rendering */
+            image-rendering: auto;
+        }
 
-/* SLIDES */
-.page{
-    position:absolute;
-    width:100vw;
-    height:100vh;
-    border-radius:0;
-    overflow:hidden;
-    cursor:pointer;
+        /* subtle overlay for text readability - lighter touch to preserve video quality */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 20, 0.4);
+            backdrop-filter: blur(2px);
+            z-index: 1;
+            pointer-events: none;
+        }
 
-    transition:
-    transform 0.9s cubic-bezier(.2,.8,.2,1),
-    opacity 0.9s ease,
-    filter 0.9s ease;
+        /* ===== RETURN TO HOME BUTTON - TOP LEFT ===== */
+        .return-home {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 450;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px -6px rgba(0,0,0,0.2);
+        }
 
-    box-shadow:
-    0 40px 80px rgba(0,0,0,0.9);
-}
+        .return-home:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1a1a16;
+            transform: translateY(-3px);
+            border-color: transparent;
+        }
 
-/* IMAGE */
-.page img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
+        .return-home i {
+            font-size: 1rem;
+        }
 
-/* ACTIVE FULL SCREEN */
-.page.active{
+        /* ===== HEADER ===== */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease;
+            position: relative;
+            z-index: 10;
+        }
 
-    transform:
-    translateX(0)
-    scale(1)
-    rotateY(0deg);
+        .logo {
+            font-weight: 350;
+            font-size: 1.8rem;
+            letter-spacing: -0.03em;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
 
-    opacity:1;
-    filter:brightness(1);
+        .logo span {
+            font-weight: 250;
+            color: #e0d7cf;
+        }
 
-    z-index:10;
-}
+        .nav-links {
+            display: flex;
+            gap: 3.2rem;
+            font-weight: 380;
+        }
 
-/* NEXT RIGHT */
-.page.next{
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: color 0.2s, transform 0.2s;
+            display: inline-block;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
 
-    transform:
-    translateX(60%)
-    scale(0.7)
-    rotateY(-25deg);
+        .nav-links a:hover {
+            color: #f0e3d8;
+            transform: translateY(-2px);
+        }
 
-    opacity:0.7;
-    filter:brightness(0.7) blur(1px);
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeSlideUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
 
-    z-index:9;
-}
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
 
-/* THIRD */
-.page.after{
+        @keyframes scaleIn {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
 
-    transform:
-    translateX(75%)
-    scale(0.55)
-    rotateY(-35deg);
+        /* ===== HERO - REMOVED THE SIDE PANEL (hero-image removed) ===== */
+        .hero {
+            margin: 4rem 0 6rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+        }
 
-    opacity:0.5;
-    filter:brightness(0.5) blur(2px);
+        .hero-text {
+            opacity: 0;
+            animation: fadeSlideUp 0.8s 0.1s forwards;
+            width: 100%;
+        }
 
-    z-index:8;
-}
+        .hero-text h1 {
+            font-size: 4rem;
+            font-weight: 350;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            text-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+        }
 
-/* REST */
-.page.hidden{
+        .hero-text h1 .light {
+            font-weight: 250;
+            color: #f0e5db;
+            display: block;
+            font-size: 3.5rem;
+            margin-top: 0.2rem;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+        }
 
-    transform:
-    translateX(90%)
-    scale(0.4)
-    rotateY(-45deg);
+        .hero-text p {
+            margin: 2rem 0 2.8rem 0;
+            font-size: 1.2rem;
+            color: #ffffff;
+            max-width: 85%;
+            font-weight: 320;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            line-height: 1.5;
+        }
 
-    opacity:0.3;
-    filter:brightness(0.3) blur(3px);
+        .btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            padding: 1rem 3rem;
+            font-size: 0.95rem;
+            font-weight: 450;
+            letter-spacing: 0.3px;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border-radius: 40px;
+            box-shadow: 0 8px 20px -6px rgba(0,0,0,0.2);
+        }
 
-    z-index:7;
-}
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: transparent;
+            color: #1a1a16;
+            transform: scale(1.02);
+            box-shadow: 0 15px 25px -8px rgba(0,0,0,0.3);
+        }
 
-/* RESPONSIVE MOBILE */
-@media(max-width:768px){
+        /* ===== SECTION HEADING ===== */
+        .section-heading {
+            text-align: center;
+            margin: 5rem 0 3rem 0;
+            opacity: 0;
+            animation: fadeSlideUp 0.7s 0.2s forwards;
+            position: relative;
+            z-index: 10;
+        }
 
-.page.next{
-    transform:translateX(50%) scale(0.75);
-}
+        .section-heading .sub {
+            color: #f0e5db;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            margin-bottom: 0.7rem;
+            font-weight: 400;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+        }
 
-.page.after{
-    transform:translateX(65%) scale(0.6);
-}
+        .section-heading h2 {
+            font-weight: 300;
+            font-size: 2.6rem;
+            color: #ffffff;
+            text-shadow: 0 3px 16px rgba(0,0,0,0.4);
+        }
 
-.page.hidden{
-    transform:translateX(80%) scale(0.45);
-}
+        /* ===== FEATURE GRID - 3x3 WITH IMAGES ===== */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3.5rem 0;
+            position: relative;
+            z-index: 10;
+        }
 
-}
+        .feature-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 38px;
+            box-shadow: 0 15px 30px -12px rgba(0,0,0,0.25);
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            border: 1px solid rgba(255,255,255,0.45);
+            opacity: 0;
+            animation: scaleIn 0.6s forwards;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 280px;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
 
-</style>
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.15s; }
+        .feature-card:nth-child(3) { animation-delay: 0.2s; }
+        .feature-card:nth-child(4) { animation-delay: 0.25s; }
+        .feature-card:nth-child(5) { animation-delay: 0.3s; }
+        .feature-card:nth-child(6) { animation-delay: 0.35s; }
+        .feature-card:nth-child(7) { animation-delay: 0.4s; }
+        .feature-card:nth-child(8) { animation-delay: 0.45s; }
+        .feature-card:nth-child(9) { animation-delay: 0.5s; }
+
+        .feature-card:hover {
+            transform: translateY(-12px) scale(1.01);
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(255,255,255,0.8);
+            box-shadow: 0 30px 40px -16px rgba(0,0,0,0.35);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            border-top-left-radius: 38px;
+            border-top-right-radius: 38px;
+        }
+
+        .feature-card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 1.5rem 1.5rem 1rem 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-card h3 {
+            font-weight: 480;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #1f1e1b;
+        }
+
+        .feature-card p {
+            color: #3b3a36;
+            font-weight: 350;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-arrow {
+            margin-top: auto;
+            text-align: center;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .page-arrow a {
+            color: #4f4b44;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.2rem;
+            transition: all 0.3s ease;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .page-arrow a:hover {
+            color: #000;
+            transform: translateY(3px);
+        }
+
+        .page-arrow i {
+            font-size: 1rem;
+            animation: bounceArrow 2s infinite;
+        }
+
+        @keyframes bounceArrow {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(5px); }
+            60% { transform: translateY(3px); }
+        }
+
+        /* ===== EXPANDED VIEW MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+            animation: scaleIn 0.3s ease;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: white;
+            color: black;
+            transform: rotate(90deg);
+        }
+
+        .modal-caption {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            color: white;
+            font-size: 1rem;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* ===== DOWN ARROW BETWEEN SECTIONS ===== */
+        .section-divider {
+            text-align: center;
+            margin: 2rem 0 4rem 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-divider .down-arrow {
+            color: white;
+            font-size: 1.5rem;
+            animation: bounceArrow 2s infinite;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .section-divider .down-arrow:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(5px);
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: rgba(30, 30, 28, 0.55);
+            backdrop-filter: blur(16px);
+            border-radius: 58px;
+            padding: 4rem 3.5rem;
+            margin: 6rem 0 4rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            opacity: 0;
+            animation: fadeSlideUp 0.8s 0.2s forwards;
+            box-shadow: 0 20px 40px -14px rgba(0,0,0,0.4);
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact-details h3 {
+            font-weight: 340;
+            font-size: 2.2rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+        }
+
+        .contact-details p {
+            color: #f0e7de;
+            margin-bottom: 2.2rem;
+            max-width: 80%;
+            font-weight: 330;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+        }
+
+        .contact-line {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+            color: #ffffff;
+            transition: transform 0.2s;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+        }
+
+        .contact-line:hover {
+            transform: translateX(6px);
+            color: #f0e2d4;
+        }
+
+        .contact-line i {
+            width: 26px;
+            color: #e7d9cd;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem 0 0.6rem 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1.5px solid rgba(255,255,255,0.45);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            outline: none;
+            transition: border 0.2s;
+            color: white;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-bottom-color: #ffffff;
+        }
+
+        .contact-form textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .btn-submit {
+            background: rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.35);
+            padding: 0.9rem 3rem;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 480;
+            color: #ffffff;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 0.5rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .btn-submit:hover {
+            background: #ffffff;
+            border-color: #ffffff;
+            color: #1a1a16;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -10px #0000004d;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 2.5rem 0 3rem 0;
+            color: #ffffffd9;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            animation: fadeIn 1.2s;
+            position: relative;
+            z-index: 10;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+        }
+
+        .footer a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: #f0dacb;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1050px) {
+            .return-home {
+                top: 20px;
+                left: 20px;
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .modal-close {
+                top: 10px;
+                right: 10px;
+            }
+
+            .modal-caption {
+                bottom: 10px;
+            }
+        }
+
+        @media (max-width: 950px) {
+            .hero {
+                max-width: 100%;
+            }
+            .hero-text p {
+                max-width: 100%;
+            }
+            .contact-section {
+                grid-template-columns: 1fr;
+                padding: 2.5rem;
+            }
+            .contact-details p {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding-top: 70px;
+            }
+            .nav-links {
+                gap: 2rem;
+            }
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            .hero-text h1 .light {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            .hero-text h1 .light {
+                font-size: 2rem;
+            }
+            .section-heading h2 {
+                font-size: 2rem;
+            }
+            .container {
+                padding: 0 1.2rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="gallery">
+    <!-- BACKGROUND VIDEO - ORIGINAL QUALITY & SPEED -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline disablePictureInPicture>
+            <!-- Premium 4K-ready architecture/cinematic drone footage - plays at original speed, original quality -->
+            <source src="10614138-hd_3840_2160_30fps.mp4" type="video/mp4">
+            <!-- High quality alternative: modern architecture establishing shot -->
+            <source src="10614138-hd_3840_2160_30fps.mp4" type="video/mp4">
+            
+            <!-- Fallback text -->
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <!-- Light overlay for text readability while preserving video clarity -->
+    <div class="video-overlay"></div>
 
-<div class="page"><img src="4.jpg"></div>
-<div class="page"><img src="6.jpg"></div>
-<div class="page"><img src="9.jpg"></div>
-<div class="page"><img src="11.jpg"></div>
-<div class="page"><img src="15.jpg"></div>
-<div class="page"><img src="17.jpg"></div>
-<div class="page"><img src="19.jpg"></div>
-<div class="page"><img src="23.jpg"></div>
+    <!-- RETURN TO HOME BUTTON - TOP LEFT -->
+    <a href="homepage.html" class="return-home">
+        <i class="fas fa-arrow-left"></i> return home
+    </a>
 
-</div>
+    <!-- EXPANDED VIEW MODAL -->
+    <div class="modal-overlay" id="imageModal">
+        <div class="modal-content">
+            <img class="modal-image" id="modalImage" src="" alt="Expanded view">
+            <div class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="modal-caption" id="modalCaption"></div>
+        </div>
+    </div>
 
-<script>
+    <div class="container">
+        <!-- header -->
+        <nav class="navbar">
+            <div class="logo">Vista <span>| gazebo</span></div>
+            <div class="nav-links">
+                <a href="#">works</a>
+                <a href="#">contact</a>
+            </div>
+        </nav>
 
-const pages = document.querySelectorAll(".page");
-let index = 0;
+        <!-- hero - side panel completely removed -->
+        <div class="hero">
+            <div class="hero-text">
+                <h1>architecture for <br>the automobile <span class="light">minimal & sheltering</span></h1>
+                <p>A modern carport becomes a bridge between landscape and home. Honest materials, refined proportions, and a quiet presence.</p>
+                <a href="#" class="btn">design portfolio <i class="fa-regular fa-arrow-right" style="margin-left: 8px;"></i></a>
+            </div>
+        </div>
 
-function updateStack(){
+        <!-- Down arrow to indicate more content below -->
+        <div class="section-divider">
+            <div class="down-arrow" onclick="document.getElementById('grid-section').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
 
-    pages.forEach((page,i)=>{
+        <!-- feature cards - 3x3 grid with images -->
+        <div id="grid-section" class="section-heading">
+            <div class="sub">our portfolio</div>
+            <h2>design gallery</h2>
+        </div>
 
-        page.classList.remove(
-        "active","next","after","hidden"
-        );
+        <div class="feature-grid">
+            <!-- Row 1 -->
+            <div class="feature-card" onclick="openModal('5.jpg', 'Aurora White — Modern Wood Carport')">
+                <img class="card-image" src="5.jpg" alt="Modern Wood Carport">
+                <div class="card-content">
+                    <h3>Aurora white</h3>
+                    <p>Sleek lines & natural timber</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" onclick="openModal('7.jpg', 'Obsidian Black — Weathered Timber Structure')">
+                <img class="card-image" src="7.jpg" alt="Weathered Timber">
+                <div class="card-content">
+                    <h3>Obsidian black</h3>
+                    <p>Bold contrast & durability</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" onclick="openModal('10.jpg', 'Glass Horizon — Filtered Light Canopy')">
+                <img class="card-image" src="10.jpg" alt="Filtered Light">
+                <div class="card-content">
+                    <h3>Glass horizon</h3>
+                    <p>Transparent elegance</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-        if(i===index)
-            page.classList.add("active");
+            <!-- Row 2 -->
+            <div class="feature-card" onclick="openModal('12.jpg', 'Stratos Open — Sustainable Design')">
+                <img class="card-image" src="12.jpg" alt="Sustainable Design">
+                <div class="card-content">
+                    <h3>stratos open</h3>
+                    <p>Eco-friendly & airy</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" onclick="openModal('14.jpg', 'Timber Luxe — Modular System')">
+                <img class="card-image" src="14.jpg" alt="Modular System">
+                <div class="card-content">
+                    <h3>Timber luxe</h3>
+                    <p>Premium craftsmanship</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" onclick="openModal('16.jpg', 'Zenith Hybrid — Green Integration')">
+                <img class="card-image" src="16.jpg" alt="Green Integration">
+                <div class="card-content">
+                    <h3>Zenith Hybrid</h3>
+                    <p>Nature meets modern</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-        else if(i===index+1)
-            page.classList.add("next");
+            <!-- Row 3 -->
+            <div class="feature-card" onclick="openModal('18.jpg', 'Noir Glass — Rapid Assembly')">
+                <img class="card-image" src="18.jpg" alt="Rapid Assembly">
+                <div class="card-content">
+                    <h3>Noir glass</h3>
+                    <p>Minimalist steel frame</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" onclick="openModal('20.jpg', 'Polar Cube — Premium Materials')">
+                <img class="card-image" src="20.jpg" alt="Premium Materials">
+                <div class="card-content">
+                    <h3>Polar cube</h3>
+                    <p>Crisp & sculptural</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" onclick="openModal('23.jpg', 'Onyx Edge — Integrated Lighting')">
+                <img class="card-image" src="23.jpg" alt="Integrated Lighting">
+                <div class="card-content">
+                    <h3>Onyx edge</h3>
+                    <p>Sophisticated illumination</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        else if(i===index+2)
-            page.classList.add("after");
+        <!-- Down arrow before contact section -->
+        <div class="section-divider">
+            <div class="down-arrow" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
 
-        else if(i>index+2)
-            page.classList.add("hidden");
+        <!-- contact section -->
+        <div class="contact-section" id="contact">
+            <div class="contact-details">
+                <h3>discuss your<br>bespoke gazebo.</h3>
+                <p>We collaborate with architects and homeowners to design structures that feel both modern and timeless.</p>
+                <div class="contact-line">
+                    <i class="fa-regular fa-envelope"></i> <span>orizonvista@gmail.com</span>
+                </div>
+                <div class="contact-line">
+                    <i class="fa-regular fa-pen-to-square"></i> <span>+254 116589060</span>
+                </div>
+            </div>
+            <div class="contact-form">
+                <input type="text" placeholder="name">
+                <input type="email" placeholder="email">
+                <textarea placeholder="tell us about your space ..."></textarea>
+                <button class="btn-submit">send inquiry →</button>
+            </div>
+        </div>
 
-    });
+        <!-- Down arrow before footer -->
+        <div class="section-divider">
+            <div class="down-arrow" onclick="document.querySelector('.footer').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
 
-}
+        <!-- footer -->
+        <div class="footer">
+            <div> vista gazebos — 2025</div>
+            <div>
+                <a href="#">instagram</a>
+                <a href="#">journal</a>
+            </div>
+        </div>
+    </div>
 
-updateStack();
+    <script>
+        // Modal functions for image expansion
+        function openModal(imageSrc, caption = "Design detail") {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalCaption = document.getElementById('modalCaption');
+            
+            modalImage.src = imageSrc;
+            modalCaption.textContent = caption;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
 
-/* SCROLL CONTROL */
-window.addEventListener("wheel",(e)=>{
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
 
-    if(e.deltaY>0 && index < pages.length-1)
-        index++;
+        // Close modal when clicking outside the image
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
 
-    else if(e.deltaY<0 && index>0)
-        index--;
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
 
-    updateStack();
+        // Prevent card click when clicking on arrow links inside cards
+        document.querySelectorAll('.page-arrow a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
 
-});
-
-/* TOUCH SUPPORT */
-let startX=0;
-
-window.addEventListener("touchstart",(e)=>{
-    startX=e.touches[0].clientX;
-});
-
-window.addEventListener("touchend",(e)=>{
-
-    let endX=e.changedTouches[0].clientX;
-
-    if(startX-endX>50 && index < pages.length-1)
-        index++;
-
-    if(endX-startX>50 && index>0)
-        index--;
-
-    updateStack();
-
-});
-
-/* CLICK SELECT */
-pages.forEach((page,i)=>{
-
-    page.addEventListener("click",()=>{
-        index=i;
-        updateStack();
-    });
-
-});
-
-</script>
-
+        // Ensure video plays at original speed and quality (no modifications applied)
+        const bgVideo = document.querySelector('.video-background video');
+        if (bgVideo) {
+            // Set playback rate to 1.0 explicitly to ensure original speed
+            bgVideo.playbackRate = 1.0;
+            // Ensure highest quality by letting the browser choose optimal source
+            bgVideo.play().catch(e => console.log("Autoplay prevented, user interaction may be needed"));
+        }
+    </script>
 </body>
 </html>

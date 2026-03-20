@@ -118,6 +118,38 @@
             animation: fadeSlideUp 0.9s cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
         }
 
+        /* ===== RETURN TO HOME BUTTON ===== */
+        .return-home {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 450;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px -6px rgba(0,0,0,0.2);
+        }
+
+        .return-home:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1a1a16;
+            transform: translateY(-3px);
+            border-color: transparent;
+        }
+
+        .return-home i {
+            font-size: 1rem;
+        }
+
         /* ===== HEADER ===== */
         .navbar {
             display: flex;
@@ -296,7 +328,7 @@
             text-shadow: 0 3px 16px rgba(0,0,0,0.4);
         }
 
-        /* ===== FEATURE GRID ===== */
+        /* ===== FEATURE GRID - 3x3 ===== */
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -309,18 +341,29 @@
         .feature-card {
             background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(12px);
-            padding: 2.8rem 2rem;
+            padding: 2rem 1.5rem;
             border-radius: 38px;
             box-shadow: 0 15px 30px -12px rgba(0,0,0,0.25);
             transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
             border: 1px solid rgba(255,255,255,0.45);
             opacity: 0;
             animation: scaleIn 0.6s forwards;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 280px;
         }
 
-        .feature-card:nth-child(1) { animation-delay: 0.15s; }
-        .feature-card:nth-child(2) { animation-delay: 0.3s; }
-        .feature-card:nth-child(3) { animation-delay: 0.45s; }
+        /* Animation delays for 9 items */
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.15s; }
+        .feature-card:nth-child(3) { animation-delay: 0.2s; }
+        .feature-card:nth-child(4) { animation-delay: 0.25s; }
+        .feature-card:nth-child(5) { animation-delay: 0.3s; }
+        .feature-card:nth-child(6) { animation-delay: 0.35s; }
+        .feature-card:nth-child(7) { animation-delay: 0.4s; }
+        .feature-card:nth-child(8) { animation-delay: 0.45s; }
+        .feature-card:nth-child(9) { animation-delay: 0.5s; }
 
         .feature-card:hover {
             transform: translateY(-12px) scale(1.01);
@@ -330,9 +373,9 @@
         }
 
         .icon-outline {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: #4f4b44;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             transition: transform 0.2s;
         }
 
@@ -343,83 +386,87 @@
 
         .feature-card h3 {
             font-weight: 480;
-            font-size: 1.6rem;
-            margin-bottom: 0.7rem;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
             color: #1f1e1b;
         }
 
         .feature-card p {
             color: #3b3a36;
             font-weight: 350;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            flex-grow: 1;
         }
 
-        /* ===== MATERIAL SHOWCASE ===== */
-        .material-showcase {
-            background: rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(14px);
-            border-radius: 70px;
-            padding: 4rem 2.5rem;
-            margin: 5rem 0;
-            transform-origin: center;
-            animation: scaleIn 0.9s 0.1s forwards;
-            opacity: 0;
-            border: 1px solid rgba(255,255,255,0.2);
+        /* ===== PAGE ARROW (shows there's another page below) ===== */
+        .page-arrow {
+            margin-top: auto;
+            text-align: center;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .page-arrow a {
+            color: #4f4b44;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.2rem;
+            transition: all 0.3s ease;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .page-arrow a:hover {
+            color: #000;
+            transform: translateY(3px);
+        }
+
+        .page-arrow i {
+            font-size: 1rem;
+            animation: bounceArrow 2s infinite;
+        }
+
+        @keyframes bounceArrow {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(5px); }
+            60% { transform: translateY(3px); }
+        }
+
+        /* ===== DOWN ARROW BETWEEN SECTIONS ===== */
+        .section-divider {
+            text-align: center;
+            margin: 2rem 0 4rem 0;
             position: relative;
             z-index: 10;
         }
 
-        .material-flex {
+        .section-divider .down-arrow {
+            color: white;
+            font-size: 1.5rem;
+            animation: bounceArrow 2s infinite;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             display: flex;
-            gap: 2.5rem;
-            flex-wrap: wrap;
+            align-items: center;
             justify-content: center;
-        }
-
-        .material-item {
-            flex: 1 1 150px;
-            text-align: center;
-            transition: all 0.3s ease;
-            opacity: 0;
-            animation: fadeSlideUp 0.6s forwards;
-        }
-
-        .material-item:nth-child(1) { animation-delay: 0.1s; }
-        .material-item:nth-child(2) { animation-delay: 0.2s; }
-        .material-item:nth-child(3) { animation-delay: 0.3s; }
-        .material-item:nth-child(4) { animation-delay: 0.4s; }
-
-        .material-item:hover {
-            transform: translateY(-8px);
-        }
-
-        .material-item i {
-            font-size: 2.6rem;
-            color: #f0e4d9;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(4px);
-            padding: 1.4rem;
-            border-radius: 80px;
+            margin: 0 auto;
             border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.25s;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .material-item:hover i {
-            background: rgba(255, 255, 255, 0.2);
-            color: #ffffff;
-            border-color: rgba(255,255,255,0.5);
-        }
-
-        .material-item h4 {
-            font-weight: 480;
-            margin: 1.2rem 0 0.2rem;
-            color: #ffffff;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.4);
-        }
-
-        .material-item p {
-            color: #e5dbd1;
-            font-size: 0.85rem;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        .section-divider .down-arrow:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(5px);
         }
 
         /* ===== CONTACT SECTION ===== */
@@ -544,6 +591,7 @@
             position: relative;
             z-index: 10;
             text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+            margin-bottom: 80px; /* Space for return button */
         }
 
         .footer a {
@@ -578,10 +626,13 @@
             }
         }
 
-        @media (max-width: 700px) {
+        @media (max-width: 850px) {
             .feature-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
+        }
+
+        @media (max-width: 700px) {
             .navbar {
                 flex-direction: column;
                 gap: 1rem;
@@ -591,10 +642,13 @@
             }
         }
 
-        @media (max-width: 500px) {
+        @media (max-width: 550px) {
             .feature-grid {
                 grid-template-columns: 1fr;
             }
+        }
+
+        @media (max-width: 500px) {
             .hero-text h1 {
                 font-size: 2.8rem;
             }
@@ -607,6 +661,12 @@
             .container {
                 padding: 0 1.2rem;
             }
+            .return-home {
+                bottom: 20px;
+                right: 20px;
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -618,6 +678,11 @@
         <div class="slide slide3"></div>
         <div class="slide slide4"></div>
     </div>
+
+    <!-- RETURN TO HOME BUTTON - links to homepage.html -->
+    <a href="homepage.html" class="return-home">
+        <i class="fas fa-arrow-left"></i> return home
+    </a>
 
     <div class="container">
         <!-- header -->
@@ -645,53 +710,130 @@
             </div>
         </div>
 
-        <!-- feature cards -->
-        <div class="section-heading">
+        <!-- Down arrow to indicate more content below -->
+        <div class="section-divider">
+            <div class="down-arrow" onclick="document.getElementById('grid-section').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+
+        <!-- feature cards - 3x3 grid (9 items) -->
+        <div id="grid-section" class="section-heading">
             <div class="sub">timeless principles</div>
             <h2>clarity · texture · light</h2>
         </div>
 
         <div class="feature-grid">
+            <!-- Row 1 -->
             <div class="feature-card">
                 <div class="icon-outline"><i class="fa-regular fa-compass"></i></div>
                 <h3>floating canopy</h3>
                 <p>inverted roof edges create an airy silhouette — the carport seems to hover.</p>
+                <div class="page-arrow">
+                    <a href="#">
+                        <span>next page</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
             </div>
             <div class="feature-card">
                 <div class="icon-outline"><i class="fa-regular fa-hourglass-half"></i></div>
                 <h3>weathered finish</h3>
                 <p>thermally modified timber naturally patinates. zero maintenance, timeless grace.</p>
+                <div class="page-arrow">
+                    <a href="#">
+                        <span>next page</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
             </div>
             <div class="feature-card">
                 <div class="icon-outline"><i class="fa-regular fa-sun"></i></div>
                 <h3>filtered light</h3>
                 <p>micro‑perforated panels cast shifting patterns throughout the day.</p>
+                <div class="page-arrow">
+                    <a href="#">
+                        <span>next page</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="feature-card">
+                <div class="icon-outline"><i class="fa-regular fa-star"></i></div>
+                <h3>sustainable design</h3>
+                <p>locally sourced materials and energy-efficient construction methods.</p>
+                <div class="page-arrow">
+                    <a href="#">
+                        <span>next page</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="icon-outline"><i class="fa-regular fa-building"></i></div>
+                <h3>modular system</h3>
+                <p>flexible configurations adapt to any site and vehicle requirement.</p>
+                <div class="page-arrow">
+                    <a href="#">
+                        <span>next page</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="icon-outline"><i class="fa-regular fa-leaf"></i></div>
+                <h3>green integration</h3>
+                <p>living roofs and rainwater collection for ecological harmony.</p>
+                <div class="page-arrow">
+                    <a href="#">
+                        <span>next page</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="feature-card">
+                <div class="icon-outline"><i class="fa-regular fa-clock"></i></div>
+                <h3>rapid assembly</h3>
+                <p>prefabricated components ensure quick on-site installation.</p>
+                <div class="page-arrow">
+                    <a href="#">
+                        <span>next page</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="icon-outline"><i class="fa-regular fa-gem"></i></div>
+                <h3>premium materials</h3>
+                <p>selected hardwoods and corrosion-resistant metals for longevity.</p>
+                <div class="page-arrow">
+                    <a href="#">
+                        <span>next page</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="icon-outline"><i class="fa-regular fa-moon"></i></div>
+                <h3>integrated lighting</h3>
+                <p>subtle LED integration for nighttime ambiance and safety.</p>
+                <div class="page-arrow">
+                    <a href="#">
+                        <span>next page</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
             </div>
         </div>
 
-        <!-- material palette -->
-        <div class="material-showcase">
-            <div class="material-flex">
-                <div class="material-item">
-                    <i class="fa-solid fa-tree"></i>
-                    <h4>thermo‑ash</h4>
-                    <p>charred finish / oiled</p>
-                </div>
-                <div class="material-item">
-                    <i class="fa-regular fa-gem"></i>
-                    <h4>corten steel</h4>
-                    <p>pre‑rusted, stable patina</p>
-                </div>
-                <div class="material-item">
-                    <i class="fa-regular fa-window-maximize"></i>
-                    <h4>polycarbonate</h4>
-                    <p>honeycomb structured</p>
-                </div>
-                <div class="material-item">
-                    <i class="fa-regular fa-hard-drive"></i>
-                    <h4>exposed concrete</h4>
-                    <p>board‑formed texture</p>
-                </div>
+        <!-- Down arrow before contact section -->
+        <div class="section-divider">
+            <div class="down-arrow" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-chevron-down"></i>
             </div>
         </div>
 
@@ -718,6 +860,13 @@
             </div>
         </div>
 
+        <!-- Down arrow before footer -->
+        <div class="section-divider">
+            <div class="down-arrow" onclick="document.querySelector('.footer').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+
         <!-- footer -->
         <div class="footer">
             <div>© aether carport — 2025</div>
@@ -728,5 +877,14 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Smooth scroll for all arrow clicks
+        document.querySelectorAll('.down-arrow').forEach(arrow => {
+            arrow.addEventListener('click', function(e) {
+                e.preventDefault();
+            });
+        });
+    </script>
 </body>
 </html>
