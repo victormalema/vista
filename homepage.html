@@ -2,421 +2,570 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Vista Orizon | Premium Designs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+<title>Vista Orizon | Luxury Architectural Designs</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins', sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
+body {
+    font-family: 'Inter', sans-serif;
+    background: #0a0a0a;
+    color: #fff;
     overflow-x: hidden;
-    color:white;
-    min-height:100vh;
+    min-height: 100vh;
 }
 
-/* Background Video */
-.video-bg{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    z-index:-3;
+/* Premium Background with Gradient Overlay */
+.hero-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    filter: brightness(0.7);
 }
 
-.overlay{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.6);
-    z-index:-2;
+.gradient-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.75) 100%);
+    z-index: -1;
 }
 
-/* Logo - responsive */
-.top-left{
-    position:fixed;
-    top:20px;
-    left:20px;
-    z-index:5;
+/* Elegant Floating Logo */
+.logo-container {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+    background: rgba(255,255,255,0.08);
+    padding: 8px 18px;
+    border-radius: 60px;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: all 0.3s ease;
 }
 
-.top-left img{
-    width:90px;
-    transition:0.3s ease;
+.logo-container img {
+    height: 42px;
+    width: auto;
+    display: block;
 }
 
-/* ================= NAV BUTTON ================= */
-.menu-btn{
-    position:fixed;
-    top:22px;
-    right:22px;
-    width:40px;
-    height:28px;
-    cursor:pointer;
-    z-index:10;
+/* Modern Menu Button - Glass Morphism */
+.menu-toggle {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 100;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
 }
 
-.menu-btn span{
-    display:block;
-    height:3px;
-    width:100%;
-    background:white;
-    margin:6px 0;
-    transition:0.4s ease;
-    border-radius:2px;
+.menu-toggle:hover {
+    background: rgba(194, 178, 62, 0.2);
+    border-color: rgba(194, 178, 62, 0.5);
 }
 
-/* Animated burger */
-.menu-btn.active span:nth-child(1){
-    transform:rotate(45deg) translate(6px,6px);
+.menu-toggle span {
+    width: 24px;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
 }
 
-.menu-btn.active span:nth-child(2){
-    opacity:0;
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+    background: #c2b23e;
 }
 
-.menu-btn.active span:nth-child(3){
-    transform:rotate(-45deg) translate(7px,-7px);
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0.8);
 }
 
-/* ================= SIDE NAV ================= */
-.side-nav{
-    position:fixed;
-    top:0;
-    right:-100%;
-    width:280px;
-    height:100%;
-    background:rgba(0,0,0,0.9);
-    backdrop-filter:blur(15px);
-    padding:100px 30px;
-    transition:0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-    z-index:9;
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+    background: #c2b23e;
 }
 
-.side-nav.active{
-    right:0;
+/* Sleek Side Navigation */
+.side-nav-premium {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 85%;
+    max-width: 380px;
+    height: 100vh;
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(20px);
+    z-index: 99;
+    padding: 100px 40px 40px;
+    transition: right 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    border-left: 1px solid rgba(194, 178, 62, 0.3);
+    box-shadow: -10px 0 40px rgba(0,0,0,0.5);
 }
 
-.side-nav ul{
-    list-style:none;
+.side-nav-premium.active {
+    right: 0;
 }
 
-.side-nav ul li{
-    margin:28px 0;
+.side-nav-premium ul {
+    list-style: none;
 }
 
-.side-nav ul li a{
-    color:white;
-    text-decoration:none;
-    font-size:1.2rem;
-    font-weight:500;
-    letter-spacing:1px;
-    transition:0.3s;
-    display:inline-block;
+.side-nav-premium ul li {
+    margin: 32px 0;
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.4s ease;
+    transition-delay: calc(0.05s * var(--i, 0));
 }
 
-.side-nav ul li a:hover{
-    color:#c2b23e;
-    transform:translateX(8px);
+.side-nav-premium.active ul li {
+    opacity: 1;
+    transform: translateX(0);
 }
 
-/* ==== Center Wrapper ==== */
-.center-page {
-    position:fixed;
-    top:50%;
-    left:50%;
-    transform:translate(-50%, -50%);
-    text-align:center;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:30px;
-    width:90%;
-    max-width:1200px;
-    padding:20px;
-    pointer-events: auto;
+.side-nav-premium ul li:nth-child(1) { --i: 1; }
+.side-nav-premium ul li:nth-child(2) { --i: 2; }
+.side-nav-premium ul li:nth-child(3) { --i: 3; }
+.side-nav-premium ul li:nth-child(4) { --i: 4; }
+
+.side-nav-premium ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.6rem;
+    font-weight: 500;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
 }
 
-/* Heading Styles - responsive */
-.brand-title h1{
-    font-size:clamp(1.8rem, 8vw, 3rem);
-    font-weight:700;
-    letter-spacing:2px;
-    text-shadow:0 2px 10px rgba(0,0,0,0.3);
+.side-nav-premium ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #c2b23e;
+    transition: width 0.3s ease;
 }
 
-.brand-title p{
-    font-size:clamp(0.8rem, 4vw, 1.2rem);
-    opacity:0.9;
-    letter-spacing:1px;
-    margin-top:5px;
+.side-nav-premium ul li a:hover {
+    color: #c2b23e;
+    transform: translateX(8px);
 }
 
-/* ========== IMPROVED ICON GRID - RESPONSIVE ========== */
-.png-grid{
-    display:grid;
-    grid-template-columns: repeat(3, minmax(85px, 130px));
-    gap:clamp(15px, 4vw, 35px);
-    justify-content:center;
-    align-items:center;
-    margin-top:10px;
+.side-nav-premium ul li a:hover::after {
+    width: 100%;
 }
 
-/* Individual icon card */
-.png-item{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    text-decoration:none;
-    transition:all 0.3s ease;
-    cursor:pointer;
+/* Main Content - Centered with Elegant Spacing */
+.main-content {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 24px 100px;
 }
 
-/* ICON SIZE REDUCED and responsive */
-.png-item img{
-    width:clamp(65px, 12vw, 95px);
-    height:auto;
-    transition:0.3s ease;
-    filter:drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+.content-wrapper {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
 }
 
-/* Hover effect - smooth */
-.png-item:hover img{
-    transform:scale(1.08);
-    filter:drop-shadow(0 0 12px rgba(194,178,62,0.5));
+/* Hero Section */
+.hero-section {
+    margin-bottom: 50px;
 }
 
-/* TEXT LABEL BELOW EACH ICON - NEW FEATURE */
-.icon-label{
-    margin-top:10px;
-    font-size:clamp(0.7rem, 3vw, 0.85rem);
-    font-weight:500;
-    color:white;
-    text-align:center;
-    letter-spacing:0.5px;
-    background:rgba(0,0,0,0.4);
-    padding:5px 10px;
-    border-radius:30px;
-    backdrop-filter:blur(4px);
-    transition:0.2s ease;
-    width:auto;
-    min-width:70px;
+.hero-section h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 8vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #fff 0%, #c2b23e 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
-.png-item:hover .icon-label{
-    background:rgba(194,178,62,0.7);
-    color:#111;
-    transform:translateY(-2px);
+.subtitle {
+    font-size: clamp(0.85rem, 4vw, 1.1rem);
+    font-weight: 400;
+    opacity: 0.85;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
 }
 
-/* ================= SOCIAL BAR ================= */
-.social-bar{
-    position:fixed;
-    bottom:20px;
-    left:50%;
-    transform:translateX(-50%);
-    display:flex;
-    gap:clamp(20px, 8vw, 40px);
-    z-index:5;
-    background:rgba(0,0,0,0.3);
-    backdrop-filter:blur(8px);
-    padding:8px 20px;
-    border-radius:50px;
+.subtitle::before,
+.subtitle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 1px;
+    background: rgba(194, 178, 62, 0.5);
 }
 
-.social-bar a{
-    color:white;
-    font-size:clamp(1rem, 5vw, 1.3rem);
-    transition:0.3s ease;
+.subtitle::before {
+    left: -40px;
 }
 
-.social-bar a:hover{
-    color:#c2b23e;
-    transform:translateY(-4px);
+.subtitle::after {
+    right: -40px;
 }
 
-/* ========== MEDIA QUERIES - PERFECT FOR PHONES ========== */
-@media (max-width: 768px) {
-    .top-left img{
-        width:70px;
+/* Elegant Icon Grid - Phone First Design */
+.icon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 130px));
+    gap: 28px 20px;
+    justify-content: center;
+    align-items: start;
+    margin-top: 30px;
+}
+
+.icon-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(4px);
+    padding: 18px 12px 14px;
+    border-radius: 24px;
+    transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+}
+
+.icon-card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(194, 178, 62, 0.4);
+    box-shadow: 0 20px 35px -15px rgba(0,0,0,0.4);
+}
+
+.icon-card:active {
+    transform: translateY(-2px);
+}
+
+/* Reduced Icon Size as Requested */
+.icon-card img {
+    width: clamp(60px, 13vw, 85px);
+    height: auto;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+.icon-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Text Label Below Icon - Enhanced Styling */
+.icon-label {
+    margin-top: 14px;
+    font-size: clamp(0.7rem, 3.5vw, 0.85rem);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff;
+    background: rgba(0,0,0,0.5);
+    padding: 6px 14px;
+    border-radius: 40px;
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+    width: fit-content;
+    max-width: 100%;
+}
+
+.icon-card:hover .icon-label {
+    background: #c2b23e;
+    color: #0a0a0a;
+    transform: scale(1.02);
+}
+
+/* Premium Social Bar */
+.social-links {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    padding: 18px 20px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(15px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 90;
+}
+
+.social-icon {
+    color: #fff;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    color: #c2b23e;
+    transform: translateY(-5px);
+    background: rgba(194, 178, 62, 0.15);
+}
+
+/* ========== RESPONSIVE DESIGN - PHONE EXCELLENCE ========== */
+@media (max-width: 640px) {
+    .logo-container {
+        top: 16px;
+        left: 16px;
+        padding: 6px 14px;
     }
     
-    .menu-btn{
-        top:18px;
-        right:18px;
-        width:35px;
-        height:26px;
+    .logo-container img {
+        height: 32px;
     }
     
-    .menu-btn span{
-        margin:5px 0;
-        height:2.5px;
+    .menu-toggle {
+        top: 16px;
+        right: 16px;
+        width: 44px;
+        height: 44px;
     }
     
-    .side-nav{
-        width:260px;
-        padding:90px 25px;
+    .main-content {
+        padding: 90px 16px 80px;
     }
     
-    .side-nav ul li{
-        margin:22px 0;
+    .hero-section {
+        margin-bottom: 35px;
     }
     
-    .side-nav ul li a{
-        font-size:1.1rem;
+    /* Phone optimized grid: exactly 2 columns for better touch targets */
+    .icon-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
     }
     
-    /* GRID ADJUSTMENT for smaller screens - still 3 columns but tighter */
-    .png-grid{
-        grid-template-columns: repeat(3, minmax(70px, 100px));
-        gap:clamp(12px, 3vw, 20px);
+    .icon-card {
+        padding: 16px 10px 12px;
     }
     
-    .png-item img{
-        width:clamp(55px, 10vw, 75px);
+    .icon-card img {
+        width: 70px;
     }
     
-    .icon-label{
-        margin-top:8px;
-        font-size:0.65rem;
-        padding:4px 8px;
-        white-space: nowrap;
+    .icon-label {
+        font-size: 0.68rem;
+        padding: 5px 10px;
+        margin-top: 10px;
+        letter-spacing: 0.5px;
     }
     
-    .center-page{
-        gap:20px;
-        width:95%;
+    .social-links {
+        gap: 25px;
+        padding: 12px 20px;
     }
     
-    .social-bar{
-        gap:25px;
-        padding:6px 18px;
-        bottom:15px;
+    .social-icon {
+        font-size: 1.1rem;
+        width: 36px;
+        height: 36px;
+    }
+    
+    .subtitle::before,
+    .subtitle::after {
+        width: 20px;
+    }
+    
+    .subtitle::before {
+        left: -28px;
+    }
+    
+    .subtitle::after {
+        right: -28px;
     }
 }
 
-/* For very small phones (max-width: 480px) */
+/* Small phones (below 400px) */
 @media (max-width: 480px) {
-    .png-grid{
-        grid-template-columns: repeat(3, minmax(68px, 85px));
-        gap:12px;
+    .icon-grid {
+        gap: 14px;
     }
     
-    .png-item img{
-        width:60px;
+    .icon-card {
+        padding: 14px 8px 10px;
     }
     
-    .icon-label{
-        font-size:0.6rem;
-        padding:3px 6px;
-        white-space: normal;
-        word-break: keep-all;
-        min-width: 60px;
+    .icon-card img {
+        width: 58px;
     }
     
-    .brand-title h1{
-        font-size:1.8rem;
+    .icon-label {
+        font-size: 0.6rem;
+        padding: 4px 8px;
+        margin-top: 8px;
     }
     
-    .brand-title p{
-        font-size:0.75rem;
+    .hero-section h1 {
+        font-size: 1.9rem;
     }
     
-    .social-bar a{
-        font-size:0.9rem;
+    .side-nav-premium {
+        padding: 90px 30px 30px;
     }
     
-    .top-left img{
-        width:60px;
+    .side-nav-premium ul li a {
+        font-size: 1.3rem;
     }
 }
 
-/* For landscape mode on phones */
-@media (max-width: 850px) and (orientation: landscape) {
-    .center-page{
-        gap:12px;
-        transform:translate(-50%, -50%) scale(0.9);
-    }
-    
-    .png-grid{
-        gap:12px;
-    }
-    
-    .png-item img{
-        width:55px;
-    }
-    
-    .icon-label{
-        font-size:0.55rem;
-        padding:2px 6px;
-        margin-top:5px;
-    }
-    
-    .brand-title h1{
-        font-size:1.5rem;
-    }
-}
-
-/* For tablets in portrait - smooth adjustment */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .png-grid{
+/* Tablets and medium screens - 3 columns */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .icon-grid {
         grid-template-columns: repeat(3, minmax(110px, 140px));
-        gap:25px;
+        gap: 25px;
     }
     
-    .png-item img{
-        width:95px;
+    .icon-card img {
+        width: 80px;
     }
     
-    .icon-label{
-        font-size:0.75rem;
+    .icon-label {
+        font-size: 0.75rem;
+        padding: 6px 12px;
     }
 }
 
-/* Large desktop screens - maintain proportion */
-@media (min-width: 1400px) {
-    .png-grid{
-        grid-template-columns: repeat(3, 150px);
-        gap:45px;
+/* Laptop and Desktop - Elegant 3 column layout */
+@media (min-width: 1025px) {
+    .icon-grid {
+        grid-template-columns: repeat(3, minmax(130px, 160px));
+        gap: 40px;
     }
     
-    .png-item img{
-        width:115px;
+    .icon-card {
+        padding: 24px 16px 18px;
     }
     
-    .icon-label{
-        font-size:0.9rem;
-        padding:6px 14px;
+    .icon-card img {
+        width: 90px;
+    }
+    
+    .icon-label {
+        font-size: 0.8rem;
+        padding: 7px 16px;
+        margin-top: 16px;
+    }
+    
+    .social-icon {
+        font-size: 1.4rem;
+        width: 45px;
+        height: 45px;
+    }
+    
+    .logo-container img {
+        height: 48px;
     }
 }
 
-/* Accessibility & smoothness */
-.png-item:focus-visible {
-    outline: 2px solid #c2b23e;
-    border-radius: 12px;
+/* Landscape orientation for phones */
+@media (max-width: 850px) and (orientation: landscape) {
+    .main-content {
+        padding: 70px 20px 70px;
+    }
+    
+    .icon-grid {
+        grid-template-columns: repeat(3, minmax(85px, 110px));
+        gap: 15px;
+    }
+    
+    .icon-card img {
+        width: 55px;
+    }
+    
+    .icon-label {
+        font-size: 0.6rem;
+        padding: 3px 8px;
+        margin-top: 6px;
+    }
+    
+    .hero-section {
+        margin-bottom: 20px;
+    }
+    
+    .hero-section h1 {
+        font-size: 1.6rem;
+    }
 }
 
-/* Fix for touch targets on mobile */
+/* Touch-friendly improvements */
 @media (hover: none) and (pointer: coarse) {
-    .png-item {
-        padding: 5px;
+    .icon-card:active {
+        transform: scale(0.97);
+        background: rgba(194, 178, 62, 0.2);
     }
     
-    .png-item:active img {
-        transform: scale(0.98);
+    .icon-card:active .icon-label {
+        background: #c2b23e;
+        color: #0a0a0a;
     }
+}
+
+/* Smooth scrolling and accessibility */
+html {
+    scroll-behavior: smooth;
+}
+
+::selection {
+    background: #c2b23e;
+    color: #0a0a0a;
 }
 </style>
 </head>
@@ -424,108 +573,172 @@ body{
 <body>
 
 <!-- Background Video -->
-<video autoplay muted loop playsinline class="video-bg">
+<video autoplay muted loop playsinline class="hero-bg">
     <source src="YTDown.com_YouTube_Inside-The-World-s-Most-Secret-House-Bui_Media_OMUfmlPs_w4_001_1080p (1).mp4" type="video/mp4">
 </video>
-<div class="overlay"></div>
+<div class="gradient-overlay"></div>
 
-<!-- Logo -->
-<div class="top-left">
-    <img src="553106437_17845870137574455_8823922694648873162_n-removebg-preview.png" alt="Vista Orizon Logo">
+<!-- Logo with Glass Effect -->
+<div class="logo-container">
+    <img src="553106437_17845870137574455_8823922694648873162_n-removebg-preview.png" alt="Vista Orizon">
 </div>
 
-<!-- NAV BUTTON -->
-<div class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+<!-- Modern Menu Button -->
+<div class="menu-toggle" id="menuToggle" onclick="togglePremiumMenu()">
     <span></span>
     <span></span>
     <span></span>
 </div>
 
-<!-- SIDE NAV -->
-<div class="side-nav" id="sideNav">
+<!-- Premium Side Navigation -->
+<div class="side-nav-premium" id="premiumSideNav">
     <ul>
         <li><a href="#">Home</a></li>
-        <li><a href="#">Projects</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Studio</a></li>
+        <li><a href="#">Concierge</a></li>
     </ul>
 </div>
 
-<!-- Centered Content with Icon Labels -->
-<div class="center-page">
-    <div class="brand-title">
-        <h1>Vista Orizon</h1>
-        <p>BY BRHILL ELITE</p>
+<!-- Main Content Area -->
+<main class="main-content">
+    <div class="content-wrapper">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1>Vista Orizon</h1>
+            <div class="subtitle">BY BRHILL ELITE</div>
+        </div>
+        
+        <!-- Elegant Icon Grid with Labels -->
+        <div class="icon-grid">
+            <a href="gazebo.html" class="icon-card">
+                <img src="gazebo.png" alt="Gazebo">
+                <span class="icon-label">GAZEBO</span>
+            </a>
+            <a href="carports.html" class="icon-card">
+                <img src="carport.png" alt="Carports">
+                <span class="icon-label">CARPORTS</span>
+            </a>
+            <a href="balustrades.html" class="icon-card">
+                <img src="balustrade.png" alt="Balustrades">
+                <span class="icon-label">BALUSTRADES</span>
+            </a>
+            <a href="shower cubicles.html" class="icon-card">
+                <img src="shower cubicle.png" alt="Shower Cubicles">
+                <span class="icon-label">SHOWER</span>
+            </a>
+            <a href="curtain wall.html" class="icon-card">
+                <img src="Screenshot_2026-02-25_12.55.41_PM-removebg-preview.png" alt="Curtain Wall">
+                <span class="icon-label">CURTAIN WALL</span>
+            </a>
+            <a href="page6.html" class="icon-card">
+                <img src="Screenshot_2026-02-25_12.55.54_PM-removebg-preview.png" alt="Modern Elite">
+                <span class="icon-label">MODERN ELITE</span>
+            </a>
+        </div>
     </div>
+</main>
 
-    <div class="png-grid">
-        <!-- GAZEBO with text label -->
-        <a href="gazebo.html" class="png-item">
-            <img src="gazebo.png" alt="Gazebo Icon">
-            <span class="icon-label">Gazebo</span>
-        </a>
-        <!-- CARPORTS with text label -->
-        <a href="carports.html" class="png-item">
-            <img src="carport.png" alt="Carport Icon">
-            <span class="icon-label">Carports</span>
-        </a>
-        <!-- BALUSTRADES with text label -->
-        <a href="balustrades.html" class="png-item">
-            <img src="balustrade.png" alt="Balustrade Icon">
-            <span class="icon-label">Balustrades</span>
-        </a>
-        <!-- SHOWER CUBICLES with text label -->
-        <a href="shower cubicles.html" class="png-item">
-            <img src="shower cubicle.png" alt="Shower Cubicle Icon">
-            <span class="icon-label">Shower Cubicles</span>
-        </a>
-        <!-- CURTAIN WALL with text label -->
-        <a href="curtain wall.html" class="png-item">
-            <img src="Screenshot_2026-02-25_12.55.41_PM-removebg-preview.png" alt="Curtain Wall Icon">
-            <span class="icon-label">Curtain Wall</span>
-        </a>
-        <!-- PAGE6 / ADDITIONAL with text label -->
-        <a href="glass facades.html" class="png-item">
-            <img src="Screenshot_2026-02-25_12.55.54_PM-removebg-preview.png" alt="Modern Design Icon">
-            <span class="icon-label">Modern Elite</span>
-        </a>
-    </div>
-</div>
-
-<!-- SOCIAL MEDIA - Instagram, TikTok, WhatsApp (clean and modern) -->
-<div class="social-bar">
-    <a href="https://www.instagram.com/vista_orizon/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-    <a href="https://www.tiktok.com/@vistaorizon" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-    <a href="https://wa.me/+254116589060" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+<!-- Social Bar - Elegant Floating -->
+<div class="social-links">
+    <a href="https://www.instagram.com/vista_orizon/" target="_blank" class="social-icon" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://www.tiktok.com/@vistaorizon" target="_blank" class="social-icon" aria-label="TikTok">
+        <i class="fab fa-tiktok"></i>
+    </a>
+    <a href="https://wa.me/+254116589060" target="_blank" class="social-icon" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 </div>
 
 <script>
-function toggleMenu(){
-    const menuBtn = document.querySelector('.menu-btn');
-    const sideNav = document.getElementById('sideNav');
+// Premium Menu Toggle Function
+function togglePremiumMenu() {
+    const menuBtn = document.getElementById('menuToggle');
+    const sideNav = document.getElementById('premiumSideNav');
+    
     menuBtn.classList.toggle('active');
     sideNav.classList.toggle('active');
+    
+    // Prevent body scroll when menu is open (better mobile UX)
+    if (sideNav.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = '';
+    }
 }
 
-// Optional: Close menu when clicking on a nav link (better UX on mobile)
-document.querySelectorAll('.side-nav ul li a').forEach(link => {
-    link.addEventListener('click', () => {
-        const menuBtn = document.querySelector('.menu-btn');
-        const sideNav = document.getElementById('sideNav');
-        if(menuBtn.classList.contains('active')) {
+// Close menu when clicking on a navigation link
+document.querySelectorAll('.side-nav-premium ul li a').forEach(link => {
+    link.addEventListener('click', (e) => {
+        const menuBtn = document.getElementById('menuToggle');
+        const sideNav = document.getElementById('premiumSideNav');
+        
+        if (sideNav.classList.contains('active')) {
             menuBtn.classList.remove('active');
             sideNav.classList.remove('active');
+            document.body.style.overflow = '';
         }
+        
+        // Optional: smooth scroll to sections if needed
+        const href = link.getAttribute('href');
+        if (href && href !== '#') {
+            // Allow normal navigation
+            return;
+        }
+        e.preventDefault();
     });
 });
 
-// Touch optimization: prevent zoom double-tap issues on icons for better mobile feel
-const iconItems = document.querySelectorAll('.png-item');
-iconItems.forEach(item => {
-    item.addEventListener('touchstart', function(e) {
-        // just allows native touch, no extra delay
-    }, { passive: true });
+// Close menu when clicking outside (optional but nice on desktop)
+document.addEventListener('click', (e) => {
+    const menuBtn = document.getElementById('menuToggle');
+    const sideNav = document.getElementById('premiumSideNav');
+    const isClickInsideNav = sideNav.contains(e.target);
+    const isClickOnMenuBtn = menuBtn.contains(e.target);
+    
+    if (sideNav.classList.contains('active') && !isClickInsideNav && !isClickOnMenuBtn) {
+        menuBtn.classList.remove('active');
+        sideNav.classList.remove('active');
+        document.body.style.overflow = '';
+    }
 });
+
+// Handle window resize - reset body overflow if menu is open on resize
+window.addEventListener('resize', () => {
+    const sideNav = document.getElementById('premiumSideNav');
+    if (window.innerWidth > 768 && sideNav.classList.contains('active')) {
+        const menuBtn = document.getElementById('menuToggle');
+        menuBtn.classList.remove('active');
+        sideNav.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+// Add subtle animation on load
+window.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.icon-card');
+    cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            card.style.transition = 'all 0.5s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, 100 + (index * 50));
+    });
+});
+
+// Prevent zoom on double-tap for better mobile experience (optional)
+let lastTouchEnd = 0;
+document.addEventListener('touchend', (e) => {
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) {
+        e.preventDefault();
+    }
+    lastTouchEnd = now;
+}, false);
 </script>
 </body>
 </html>
