@@ -1,688 +1,986 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GlassEdge · Executive Shower Cubicles</title>
-  <!-- Font & CSS (refined) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-  <style>
-    /* ----- RESET & BASE ----- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>aether carport | cinematic background video</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsl,wght@14..32,200..600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: "Inter", system-ui, -apple-system, sans-serif;
-      background: #0b1a1f;  /* deep fallback */
-      /* PNG texture overlay (executive subtle pattern) + dark gradient base */
-      background-image: url('3.jpg'), 
-                        linear-gradient(145deg, #0b1a1f 0%, #1e2f37 100%);
-      background-repeat: repeat, no-repeat;
-      background-attachment: fixed;
-      color: #fff;
-      line-height: 1.5;
-      min-height: 100vh;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a14;
+            line-height: 1.4;
+            overflow-x: hidden;
+        }
 
-    /* smooth scrolling */
-    html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    /* ----- TYPOGRAPHY & UTILS ----- */
-    h1, h2, h3, h4 {
-      font-weight: 500;
-      letter-spacing: -0.02em;
-    }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 5;
+        }
 
-    h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-      font-weight: 600;
-      background: linear-gradient(to right, #ffffff, #c0e0ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+        /* ===== BACKGROUND VIDEO - ORIGINAL QUALITY & SPEED ===== */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
 
-    .section-subhead {
-      font-size: 1.1rem;
-      opacity: 0.7;
-      max-width: 700px;
-      margin: 0 auto 3rem;
-    }
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            /* No speed modification - plays at original speed */
+            /* High quality rendering */
+            image-rendering: auto;
+        }
 
-    /* ----- NAVIGATION (executive + responsive hamburger) ----- */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 1.2rem 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 1000;
-      backdrop-filter: blur(16px) saturate(180%);
-      background: rgba(10, 25, 30, 0.5);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
+        /* subtle overlay for text readability - lighter touch to preserve video quality */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 20, 0.4);
+            backdrop-filter: blur(2px);
+            z-index: 1;
+            pointer-events: none;
+        }
 
-    .logo {
-      font-size: 1.8rem;
-      font-weight: 600;
-      letter-spacing: 2px;
-      background: linear-gradient(130deg, #fff, #aad0f5);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-decoration: none;
-    }
+        /* ===== RETURN TO HOME BUTTON - TOP LEFT ===== */
+        .return-home {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 450;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px -6px rgba(0,0,0,0.2);
+        }
 
-    /* desktop menu */
-    .nav-links {
-      display: flex;
-      gap: 2.8rem;
-      list-style: none;
-    }
+        .return-home:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1a1a16;
+            transform: translateY(-3px);
+            border-color: transparent;
+        }
 
-    .nav-links li a {
-      text-decoration: none;
-      color: #fff;
-      font-weight: 400;
-      font-size: 1.1rem;
-      padding: 0.5rem 0;
-      position: relative;
-      transition: 0.3s;
-      opacity: 0.8;
-      border-bottom: 1px solid transparent;
-    }
+        .return-home i {
+            font-size: 1rem;
+        }
 
-    .nav-links li a:hover {
-      opacity: 1;
-      border-bottom-color: #00d4ff;
-    }
+        /* ===== HEADER ===== */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease;
+            position: relative;
+            z-index: 10;
+        }
 
-    /* hamburger (hidden on desktop) */
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      padding: 8px;
-    }
+        .logo {
+            font-weight: 350;
+            font-size: 1.8rem;
+            letter-spacing: -0.03em;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
 
-    .menu-toggle span {
-      width: 28px;
-      height: 2px;
-      background: white;
-      margin: 4px 0;
-      transition: 0.3s;
-      border-radius: 2px;
-    }
+        .logo span {
+            font-weight: 250;
+            color: #e0d7cf;
+        }
 
-    #menu-checkbox {
-      display: none;
-    }
+        .nav-links {
+            display: flex;
+            gap: 3.2rem;
+            font-weight: 380;
+        }
 
-    /* ----- HERO SECTION ----- */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 7rem 1.5rem 4rem;
-      position: relative;
-    }
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: color 0.2s, transform 0.2s;
+            display: inline-block;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
 
-    .hero-content {
-      max-width: 1000px;
-    }
+        .nav-links a:hover {
+            color: #f0e3d8;
+            transform: translateY(-2px);
+        }
 
-    .hero h1 {
-      font-size: clamp(2.8rem, 8vw, 5rem);
-      font-weight: 600;
-      line-height: 1.1;
-      margin-bottom: 1.2rem;
-      text-shadow: 0 10px 20px rgba(0,0,0,0.25);
-    }
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeSlideUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
 
-    .hero p {
-      font-size: 1.4rem;
-      font-weight: 300;
-      opacity: 0.85;
-      margin-bottom: 2.5rem;
-    }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
 
-    .btn-group {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+        @keyframes scaleIn {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
 
-    .btn {
-      padding: 1rem 2.8rem;
-      border-radius: 50px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.3s;
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: white;
-      font-size: 1.1rem;
-      letter-spacing: 0.5px;
-    }
+        /* ===== HERO - REMOVED THE SIDE PANEL (hero-image removed) ===== */
+        .hero {
+            margin: 4rem 0 6rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+        }
 
-    .btn-primary {
-      background: rgba(0, 212, 255, 0.2);
-      border: 1px solid rgba(0, 212, 255, 0.4);
-    }
+        .hero-text {
+            opacity: 0;
+            animation: fadeSlideUp 0.8s 0.1s forwards;
+            width: 100%;
+        }
 
-    .btn-primary:hover {
-      background: #00d4ff;
-      color: #0b1a1f;
-      border-color: transparent;
-      transform: translateY(-3px);
-      box-shadow: 0 15px 25px -8px rgba(0,212,255,0.3);
-    }
+        .hero-text h1 {
+            font-size: 4rem;
+            font-weight: 350;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            text-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+        }
 
-    .btn-outline:hover {
-      background: rgba(255,255,255,0.2);
-      backdrop-filter: blur(12px);
-      border-color: white;
-      transform: translateY(-3px);
-    }
+        .hero-text h1 .light {
+            font-weight: 250;
+            color: #f0e5db;
+            display: block;
+            font-size: 3.5rem;
+            margin-top: 0.2rem;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+        }
 
-    /* ----- SECTIONS (glassmorphism refinement) ----- */
-    .section {
-      padding: 100px 5%;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
+        .hero-text p {
+            margin: 2rem 0 2.8rem 0;
+            font-size: 1.2rem;
+            color: #ffffff;
+            max-width: 85%;
+            font-weight: 320;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            line-height: 1.5;
+        }
 
-    /* PRODUCT CARDS (now clickable) */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2.5rem;
-      margin-top: 3rem;
-    }
+        .btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            padding: 1rem 3rem;
+            font-size: 0.95rem;
+            font-weight: 450;
+            letter-spacing: 0.3px;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border-radius: 40px;
+            box-shadow: 0 8px 20px -6px rgba(0,0,0,0.2);
+        }
 
-    .card {
-      background: rgba(20, 40, 45, 0.4);
-      backdrop-filter: blur(16px);
-      border-radius: 28px;
-      padding: 2rem 1.8rem 2.2rem;
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: all 0.4s cubic-bezier(0.2,0.9,0.3,1);
-      box-shadow: 0 20px 30px -15px rgba(0,0,0,0.5);
-      cursor: pointer;
-    }
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: transparent;
+            color: #1a1a16;
+            transform: scale(1.02);
+            box-shadow: 0 15px 25px -8px rgba(0,0,0,0.3);
+        }
 
-    .card:hover {
-      transform: translateY(-12px) scale(1.02);
-      border-color: rgba(0,212,255,0.3);
-      background: rgba(30, 55, 65, 0.6);
-      box-shadow: 0 30px 40px -15px #00d4ff20;
-    }
+        /* ===== SECTION HEADING ===== */
+        .section-heading {
+            text-align: center;
+            margin: 5rem 0 3rem 0;
+            opacity: 0;
+            animation: fadeSlideUp 0.7s 0.2s forwards;
+            position: relative;
+            z-index: 10;
+        }
 
-    .card img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-      border-radius: 20px;
-      margin-bottom: 1.8rem;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.5);
-      border: 1px solid rgba(255,255,255,0.1);
-    }
+        .section-heading .sub {
+            color: #f0e5db;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            margin-bottom: 0.7rem;
+            font-weight: 400;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+        }
 
-    .card h3 {
-      font-size: 1.8rem;
-      font-weight: 500;
-      margin-bottom: 0.8rem;
-    }
+        .section-heading h2 {
+            font-weight: 300;
+            font-size: 2.6rem;
+            color: #ffffff;
+            text-shadow: 0 3px 16px rgba(0,0,0,0.4);
+        }
 
-    .card p {
-      opacity: 0.7;
-      font-weight: 300;
-    }
+        /* ===== FEATURE GRID - 3x3 WITH IMAGES ===== */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3.5rem 0;
+            position: relative;
+            z-index: 10;
+        }
 
-    /* FEATURES GRID */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 38px;
+            box-shadow: 0 15px 30px -12px rgba(0,0,0,0.25);
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            border: 1px solid rgba(255,255,255,0.45);
+            opacity: 0;
+            animation: scaleIn 0.6s forwards;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 280px;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
 
-    .feature-item {
-      background: rgba(255,255,255,0.02);
-      backdrop-filter: blur(8px);
-      padding: 2rem 1.8rem;
-      border-radius: 24px;
-      border: 1px solid rgba(255,255,255,0.05);
-      transition: 0.2s;
-    }
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.15s; }
+        .feature-card:nth-child(3) { animation-delay: 0.2s; }
+        .feature-card:nth-child(4) { animation-delay: 0.25s; }
+        .feature-card:nth-child(5) { animation-delay: 0.3s; }
+        .feature-card:nth-child(6) { animation-delay: 0.35s; }
+        .feature-card:nth-child(7) { animation-delay: 0.4s; }
+        .feature-card:nth-child(8) { animation-delay: 0.45s; }
+        .feature-card:nth-child(9) { animation-delay: 0.5s; }
 
-    .feature-item h4 {
-      font-size: 1.5rem;
-      font-weight: 500;
-      margin-bottom: 0.8rem;
-      color: #b6e6ff;
-    }
+        .feature-card:hover {
+            transform: translateY(-12px) scale(1.01);
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(255,255,255,0.8);
+            box-shadow: 0 30px 40px -16px rgba(0,0,0,0.35);
+        }
 
-    .feature-item p {
-      opacity: 0.6;
-      font-weight: 300;
-    }
+        .card-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            border-top-left-radius: 38px;
+            border-top-right-radius: 38px;
+        }
 
-    /* CONTACT / CTA */
-    .contact-section {
-      background: rgba(0,0,0,0.3);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(255,255,255,0.1);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding: 5rem 5%;
-      text-align: center;
-    }
+        .feature-card:hover .card-image {
+            transform: scale(1.05);
+        }
 
-    .contact-info {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      flex-wrap: wrap;
-      font-size: 1.2rem;
-      margin-top: 2rem;
-    }
+        .card-content {
+            padding: 1.5rem 1.5rem 1rem 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .contact-info p {
-      background: rgba(255,255,255,0.05);
-      padding: 0.8rem 2rem;
-      border-radius: 60px;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
+        .feature-card h3 {
+            font-weight: 480;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #1f1e1b;
+        }
 
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 2rem 5%;
-      opacity: 0.5;
-      font-size: 0.9rem;
-      border-top: 1px solid rgba(255,255,255,0.03);
-    }
+        .feature-card p {
+            color: #3b3a36;
+            font-weight: 350;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
 
-    /* ----- MODAL (executive popup) ----- */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-      opacity: 0;
-      visibility: hidden;
-      transition: 0.3s;
-    }
+        .page-arrow {
+            margin-top: auto;
+            text-align: center;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
 
-    .modal-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
+        .page-arrow a {
+            color: #4f4b44;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.2rem;
+            transition: all 0.3s ease;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-    .modal-container {
-      background: rgba(15, 30, 35, 0.9);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 40px;
-      max-width: 700px;
-      width: 90%;
-      max-height: 85vh;
-      overflow-y: auto;
-      padding: 2.5rem;
-      box-shadow: 0 40px 60px -20px black;
-      transform: scale(0.9);
-      transition: transform 0.3s;
-    }
+        .page-arrow a:hover {
+            color: #000;
+            transform: translateY(3px);
+        }
 
-    .active .modal-container {
-      transform: scale(1);
-    }
+        .page-arrow i {
+            font-size: 1rem;
+            animation: bounceArrow 2s infinite;
+        }
 
-    .modal-container::-webkit-scrollbar {
-      width: 6px;
-    }
-    .modal-container::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .modal-container::-webkit-scrollbar-thumb {
-      background: rgba(0,212,255,0.4);
-      border-radius: 10px;
-    }
+        @keyframes bounceArrow {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(5px); }
+            60% { transform: translateY(3px); }
+        }
 
-    .modal-close {
-      float: right;
-      font-size: 2rem;
-      line-height: 1;
-      cursor: pointer;
-      opacity: 0.6;
-      transition: 0.2s;
-      padding: 0 0.5rem;
-    }
-    .modal-close:hover {
-      opacity: 1;
-      color: #00d4ff;
-    }
+        /* ===== EXPANDED VIEW MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
 
-    .modal-container img {
-      width: 100%;
-      height: 280px;
-      object-fit: cover;
-      border-radius: 24px;
-      margin: 1rem 0 1.5rem;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
 
-    .modal-container h3 {
-      font-size: 2.2rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
+        .modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+            animation: scaleIn 0.3s ease;
+        }
 
-    .modal-features {
-      margin: 1.5rem 0;
-      list-style: none;
-    }
-    .modal-features li {
-      padding: 0.6rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-    }
-    .modal-features li::before {
-      content: "▹";
-      color: #00d4ff;
-      font-size: 1.2rem;
-    }
+        .modal-image {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
 
-    .modal-cta {
-      margin-top: 2rem;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-    /* ----- RESPONSIVE (executive mobile) ----- */
-    @media (max-width: 768px) {
-      h2 { font-size: 2.2rem; }
+        .modal-close:hover {
+            background: white;
+            color: black;
+            transform: rotate(90deg);
+        }
 
-      /* hamburger visible */
-      .menu-toggle {
-        display: flex;
-      }
+        .modal-caption {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            color: white;
+            font-size: 1rem;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
 
-      .nav-links {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        flex-direction: column;
-        background: rgba(10, 25, 30, 0.85);
-        backdrop-filter: blur(20px);
-        padding: 2rem 0;
-        gap: 2rem;
-        align-items: center;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        transform: scaleY(0);
-        transform-origin: top;
-        opacity: 0;
-        transition: transform 0.3s ease, opacity 0.2s;
-        pointer-events: none;
-        box-shadow: 0 20px 30px -10px black;
-      }
+        /* ===== DOWN ARROW BETWEEN SECTIONS ===== */
+        .section-divider {
+            text-align: center;
+            margin: 2rem 0 4rem 0;
+            position: relative;
+            z-index: 10;
+        }
 
-      #menu-checkbox:checked ~ .nav-links {
-        transform: scaleY(1);
-        opacity: 1;
-        pointer-events: all;
-      }
+        .section-divider .down-arrow {
+            color: white;
+            font-size: 1.5rem;
+            animation: bounceArrow 2s infinite;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-      /* animate hamburger */
-      #menu-checkbox:checked + .menu-toggle span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-      }
-      #menu-checkbox:checked + .menu-toggle span:nth-child(2) {
-        opacity: 0;
-      }
-      #menu-checkbox:checked + .menu-toggle span:nth-child(3) {
-        transform: rotate(-45deg) translate(6px, -6px);
-      }
+        .section-divider .down-arrow:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(5px);
+        }
 
-      .hero h1 { font-size: 2.6rem; }
-      .hero p { font-size: 1.2rem; }
+        /* ===== CONTACT SECTION ===== */
+        .contact-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: rgba(30, 30, 28, 0.55);
+            backdrop-filter: blur(16px);
+            border-radius: 58px;
+            padding: 4rem 3.5rem;
+            margin: 6rem 0 4rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            opacity: 0;
+            animation: fadeSlideUp 0.8s 0.2s forwards;
+            box-shadow: 0 20px 40px -14px rgba(0,0,0,0.4);
+            position: relative;
+            z-index: 10;
+        }
 
-      .grid, .features-grid { gap: 1.8rem; }
-      .card { padding: 1.5rem; }
-      .card img { height: 200px; }
+        .contact-details h3 {
+            font-weight: 340;
+            font-size: 2.2rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+        }
 
-      .btn-group { flex-direction: column; align-items: center; }
-      .btn { width: 100%; max-width: 300px; }
+        .contact-details p {
+            color: #f0e7de;
+            margin-bottom: 2.2rem;
+            max-width: 80%;
+            font-weight: 330;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+        }
 
-      .modal-container { padding: 1.8rem; }
-      .modal-container img { height: 200px; }
-    }
+        .contact-line {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+            color: #ffffff;
+            transition: transform 0.2s;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+        }
 
-    @media (max-width: 480px) {
-      h2 { font-size: 1.9rem; }
-      .hero h1 { font-size: 2.2rem; }
-      .logo { font-size: 1.5rem; }
-    }
+        .contact-line:hover {
+            transform: translateX(6px);
+            color: #f0e2d4;
+        }
 
-    .nav-links li a:focus-visible { outline: 1px solid #00d4ff; }
-  </style>
+        .contact-line i {
+            width: 26px;
+            color: #e7d9cd;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem 0 0.6rem 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1.5px solid rgba(255,255,255,0.45);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            outline: none;
+            transition: border 0.2s;
+            color: white;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-bottom-color: #ffffff;
+        }
+
+        .contact-form textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .btn-submit {
+            background: rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.35);
+            padding: 0.9rem 3rem;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 480;
+            color: #ffffff;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 0.5rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .btn-submit:hover {
+            background: #ffffff;
+            border-color: #ffffff;
+            color: #1a1a16;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -10px #0000004d;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 2.5rem 0 3rem 0;
+            color: #ffffffd9;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            animation: fadeIn 1.2s;
+            position: relative;
+            z-index: 10;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+        }
+
+        .footer a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: #f0dacb;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1050px) {
+            .return-home {
+                top: 20px;
+                left: 20px;
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .modal-close {
+                top: 10px;
+                right: 10px;
+            }
+
+            .modal-caption {
+                bottom: 10px;
+            }
+        }
+
+        @media (max-width: 950px) {
+            .hero {
+                max-width: 100%;
+            }
+            .hero-text p {
+                max-width: 100%;
+            }
+            .contact-section {
+                grid-template-columns: 1fr;
+                padding: 2.5rem;
+            }
+            .contact-details p {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding-top: 70px;
+            }
+            .nav-links {
+                gap: 2rem;
+            }
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            .hero-text h1 .light {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            .hero-text h1 .light {
+                font-size: 2rem;
+            }
+            .section-heading h2 {
+                font-size: 2rem;
+            }
+            .container {
+                padding: 0 1.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<!-- navigation with hamburger (checkbox hack) -->
-<nav>
-  <a href="#" class="logo">VISTA shower Cubicles</a>
-
-  <input type="checkbox" id="menu-checkbox" hidden>
-  <label for="menu-checkbox" class="menu-toggle">
-    <span></span>
-    <span></span>
-    <span></span>
-  </label>
-
-  <ul class="nav-links">
-    <li><a href="#">Home</a></li>
-    <li><a href="#products">Collections</a></li>
-    <li><a href="#features">Craftsmanship</a></li>
-    <li><a href="#contact">Enquire</a></li>
-  </ul>
-</nav>
-
-<!-- hero with refined glass background -->
-<section class="hero">
-  <div class="hero-content">
-    <h1>Luxury defined in glass & steel</h1>
-    <p>Executive shower cubicles · frameless · bespoke</p>
-    <div class="btn-group">
-      
-      <a href="#products" class="btn btn-primary">Explore designs</a>
-      <a href="#contact" class="btn btn-outline">Request consultation</a>
+    <!-- BACKGROUND VIDEO - ORIGINAL QUALITY & SPEED -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline disablePictureInPicture>
+            <!-- Premium 4K-ready architecture/cinematic drone footage - plays at original speed, original quality -->
+            <source src="5829173-uhd_2160_3840_24fps.mp4" type="video/mp4">
+            <!-- High quality alternative: modern architecture establishing shot -->
+            <source src="5829173-uhd_2160_3840_24fps.mp4" type="video/mp4">
+            <!-- Fallback text -->
+            Your browser does not support the video tag.
+        </video>
     </div>
-  </div>
-</section>
+    <!-- Light overlay for text readability while preserving video clarity -->
+    <div class="video-overlay"></div>
 
-<!-- products section – high-res unsplash images (replaced local placeholders) -->
-<section class="section" id="products">
-  <h2>Signature series</h2>
-  <div class="section-subhead">Minimalist engineering for the modern bathroom</div>
-  <div class="grid">
-    <!-- Added data-features for modal details -->
-    <div class="card" data-features="10mm tempered glass|Invisible hinges|Polished nickel finish|5-year guarantee|Frameless minimalist design|Easy-clean coating">
-      <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=800&q=80" alt="Frameless shower" loading="lazy">
-      <h3>Frameless · Air</h3>
-      <p>10mm tempered glass, invisible hinges, polished nickel.</p>
-    </div>
-    <div class="card" data-features="Soft‑close rollers|Low-profile rails|Space‑saving design|Chrome or matte black finish|Anti-derailment system|Tool-less adjustment">
-      <img src="https://images.unsplash.com/photo-1631727462158-674f6f9b529f?auto=format&fit=crop&w=800&q=80" alt="Sliding door shower" loading="lazy">
-      <h3>Sliding · Glide</h3>
-      <p>Soft‑close rollers, low-profile rails, space‑saving.</p>
-    </div>
-    <div class="card" data-features="Quadrant design|Chrome fixtures|Compact fit for apartments|360mm entry|Reversible installation|Magnetic seal">
-      <img src="https://images.unsplash.com/photo-1604014237800-1c9102c219da?auto=format&fit=crop&w=800&q=80" alt="Corner entry shower" loading="lazy">
-      <h3>Corner · Element</h3>
-      <p>Quadrant design, chrome fixtures, perfect for apartments.</p>
-    </div>
-  </div>
-</section>
+    <!-- RETURN TO HOME BUTTON - TOP LEFT -->
+    <a href="homepage.html" class="return-home">
+        <i class="fas fa-arrow-left"></i> return home
+    </a>
 
-<!-- features (executive craftsmanship) -->
-<section class="section" id="features">
-  <h2>Beyond the surface</h2>
-  <div class="section-subhead"></div>
-  <div class="features-grid">
-    <div class="feature-item">
-      <h4>🔷 Safety glass</h4>
-      <p>Certified 12mm ESG toughened, shatterproof film.</p>
-    </div>
-    <div class="feature-item">
-      <h4>⚫ Hydrophobic coating</h4>
-      <p>Easy‑clean nano layer – water beads off instantly.</p>
-    </div>
-    <div class="feature-item">
-      <h4>🔶 Bespoke sizing</h4>
-      <p>Custom measurements for any layout, any angle.</p>
-    </div>
-    <div class="feature-item">
-      <h4>⬜ Italian hardware</h4>
-      <p>Hidden brackets & brass inserts, 316L marine grade.</p>
-    </div>
-  </div>
-</section>
-
-<!-- contact area (executive lounge style) -->
-<section class="contact-section" id="contact">
-  <h2 style="margin-bottom: 0.5rem;">Elevate your space</h2>
-  <p style="max-width: 600px; margin: 0 auto 2rem; opacity: 0.8;">Book a private appointment with our design team.</p>
-  <div class="contact-info">
-    <p>📧 hello@glassedge.com</p>
-    <p>📞 +254 116 589 060</p>
-    <p>📍 Nairobi ·</p>
-  </div>
-  <div style="margin-top: 3rem;">
-    <a href="#" class="btn btn-primary" style="background: rgba(255,255,255,0.15);">Send inquiry</a>
-  </div>
-</section>
-
-<!-- MODAL POPUP (hidden by default) -->
-<div class="modal-overlay" id="productModal">
-  <div class="modal-container">
-    <span class="modal-close" id="modalClose">&times;</span>
-    <div id="modalContent">
-      <!-- dynamic content injected via js -->
-    </div>
-  </div>
-</div>
-
-<footer>
-  © 2026 Vista Orizon — executive shower architecture. All rights reserved.
-</footer>
-
-<script>
-  (function() {
-    // close mobile menu after clicking a link (improves UX)
-    const menuCheckbox = document.getElementById('menu-checkbox');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        if (window.innerWidth <= 768) {
-          menuCheckbox.checked = false;
-        }
-      });
-    });
-
-    // ----- MODAL LOGIC (executive product popup) -----
-    const modalOverlay = document.getElementById('productModal');
-    const modalContent = document.getElementById('modalContent');
-    const modalClose = document.getElementById('modalClose');
-    const cards = document.querySelectorAll('.card');
-
-    function openModal(card) {
-      // extract data from card
-      const imgSrc = card.querySelector('img').src;
-      const title = card.querySelector('h3').innerText;
-      const shortDesc = card.querySelector('p').innerText;
-      const featuresRaw = card.dataset.features || 'Premium quality|Crafted in Europe|Bespoke dimensions'; // fallback
-      const featuresArray = featuresRaw.split('|');
-
-      // build modal html
-      let featuresHtml = '<ul class="modal-features">';
-      featuresArray.forEach(f => {
-        featuresHtml += `<li>${f}</li>`;
-      });
-      featuresHtml += '</ul>';
-
-      modalContent.innerHTML = `
-        <h3>${title}</h3>
-        <img src="${imgSrc}" alt="${title}" loading="lazy">
-        <p style="opacity:0.8; margin-bottom:1rem;">${shortDesc}</p>
-        ${featuresHtml}
-        <div class="modal-cta">
-          <a href="#contact" class="btn btn-primary" style="background:rgba(0,212,255,0.2);">Request quote</a>
-          <a href="#" class="btn btn-outline" onclick="document.getElementById('productModal').classList.remove('active');">Continue browsing</a>
+    <!-- EXPANDED VIEW MODAL -->
+    <div class="modal-overlay" id="imageModal">
+        <div class="modal-content">
+            <img class="modal-image" id="modalImage" src="" alt="Expanded view">
+            <div class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="modal-caption" id="modalCaption"></div>
         </div>
-      `;
+    </div>
 
-      // show modal
-      modalOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden'; // prevent background scroll
-    }
+    <div class="container">
+        <!-- header -->
+        <nav class="navbar">
+            <div class="logo">Vista <span>| gazebo</span></div>
+            <div class="nav-links">
+                <a href="#">works</a>
+                <a href="#">contact</a>
+            </div>
+        </nav>
 
-    // attach click event to each card
-    cards.forEach(card => {
-      card.addEventListener('click', (e) => {
-        // Prevent opening if clicking on a link inside card (if any)
-        if (e.target.closest('a')) return;
-        openModal(card);
-      });
-    });
+        <!-- hero - side panel completely removed -->
+        <div class="hero">
+            <div class="hero-text">
+                <h1>architecture for <br>the automobile <span class="light">minimal & sheltering</span></h1>
+                <p>A modern carport becomes a bridge between landscape and home. Honest materials, refined proportions, and a quiet presence.</p>
+                <a href="#" class="btn">design portfolio <i class="fa-regular fa-arrow-right" style="margin-left: 8px;"></i></a>
+            </div>
+        </div>
 
-    // close modal functions
-    function closeModal() {
-      modalOverlay.classList.remove('active');
-      document.body.style.overflow = '';
-    }
+        <!-- Down arrow to indicate more content below -->
+        <div class="section-divider">
+            <div class="down-arrow" onclick="document.getElementById('grid-section').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
 
-    modalClose.addEventListener('click', closeModal);
+        <!-- feature cards - 3x3 grid with images -->
+        <div id="grid-section" class="section-heading">
+            <div class="sub">our portfolio</div>
+            <h2>design gallery</h2>
+        </div>
 
-    // click outside to close
-    modalOverlay.addEventListener('click', (e) => {
-      if (e.target === modalOverlay) {
-        closeModal();
-      }
-    });
+        <div class="feature-grid">
+            <!-- Row 1 -->
+            <div class="feature-card" onclick="openModal('5.jpg', 'Aurora White — Modern Wood Carport')">
+                <img class="card-image" src="5.jpg" alt="Modern Wood Carport">
+                <div class="card-content">
+                    <h3>Aurora white</h3>
+                    <p>Sleek lines & natural timber</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" onclick="openModal('7.jpg', 'Obsidian Black — Weathered Timber Structure')">
+                <img class="card-image" src="7.jpg" alt="Weathered Timber">
+                <div class="card-content">
+                    <h3>Obsidian black</h3>
+                    <p>Bold contrast & durability</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" onclick="openModal('10.jpg', 'Glass Horizon — Filtered Light Canopy')">
+                <img class="card-image" src="10.jpg" alt="Filtered Light">
+                <div class="card-content">
+                    <h3>Glass horizon</h3>
+                    <p>Transparent elegance</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-    // close on escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
-        closeModal();
-      }
-    });
+            <!-- Row 2 -->
+            <div class="feature-card" onclick="openModal('12.jpg', 'Stratos Open — Sustainable Design')">
+                <img class="card-image" src="12.jpg" alt="Sustainable Design">
+                <div class="card-content">
+                    <h3>stratos open</h3>
+                    <p>Eco-friendly & airy</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" onclick="openModal('14.jpg', 'Timber Luxe — Modular System')">
+                <img class="card-image" src="14.jpg" alt="Modular System">
+                <div class="card-content">
+                    <h3>Timber luxe</h3>
+                    <p>Premium craftsmanship</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" onclick="openModal('16.jpg', 'Zenith Hybrid — Green Integration')">
+                <img class="card-image" src="16.jpg" alt="Green Integration">
+                <div class="card-content">
+                    <h3>Zenith Hybrid</h3>
+                    <p>Nature meets modern</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-  })();
-</script>
+            <!-- Row 3 -->
+            <div class="feature-card" onclick="openModal('18.jpg', 'Noir Glass — Rapid Assembly')">
+                <img class="card-image" src="18.jpg" alt="Rapid Assembly">
+                <div class="card-content">
+                    <h3>Noir glass</h3>
+                    <p>Minimalist steel frame</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" onclick="openModal('20.jpg', 'Polar Cube — Premium Materials')">
+                <img class="card-image" src="20.jpg" alt="Premium Materials">
+                <div class="card-content">
+                    <h3>Polar cube</h3>
+                    <p>Crisp & sculptural</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" onclick="openModal('23.jpg', 'Onyx Edge — Integrated Lighting')">
+                <img class="card-image" src="23.jpg" alt="Integrated Lighting">
+                <div class="card-content">
+                    <h3>Onyx edge</h3>
+                    <p>Sophisticated illumination</p>
+                    <div class="page-arrow">
+                        <a href="#" onclick="event.stopPropagation()">
+                            <span>click to expand</span>
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <!-- Down arrow before contact section -->
+        <div class="section-divider">
+            <div class="down-arrow" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+
+        <!-- contact section -->
+        <div class="contact-section" id="contact">
+            <div class="contact-details">
+                <h3>discuss your<br>bespoke gazebo.</h3>
+                <p>We collaborate with architects and homeowners to design structures that feel both modern and timeless.</p>
+                <div class="contact-line">
+                    <i class="fa-regular fa-envelope"></i> <span>orizonvista@gmail.com</span>
+                </div>
+                <div class="contact-line">
+                    <i class="fa-regular fa-pen-to-square"></i> <span>+254 116589060</span>
+                </div>
+            </div>
+            <div class="contact-form">
+                <input type="text" placeholder="name">
+                <input type="email" placeholder="email">
+                <textarea placeholder="tell us about your space ..."></textarea>
+                <button class="btn-submit">send inquiry →</button>
+            </div>
+        </div>
+
+        <!-- Down arrow before footer -->
+        <div class="section-divider">
+            <div class="down-arrow" onclick="document.querySelector('.footer').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+
+        <!-- footer -->
+        <div class="footer">
+            <div> vista gazebos — 2025</div>
+            <div>
+                <a href="#">instagram</a>
+                <a href="#">journal</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functions for image expansion
+        function openModal(imageSrc, caption = "Design detail") {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalCaption = document.getElementById('modalCaption');
+            
+            modalImage.src = imageSrc;
+            modalCaption.textContent = caption;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal when clicking outside the image
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Prevent card click when clicking on arrow links inside cards
+        document.querySelectorAll('.page-arrow a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+
+        // Ensure video plays at original speed and quality (no modifications applied)
+        const bgVideo = document.querySelector('.video-background video');
+        if (bgVideo) {
+            // Set playback rate to 1.0 explicitly to ensure original speed
+            bgVideo.playbackRate = 1.0;
+            // Ensure highest quality by letting the browser choose optimal source
+            bgVideo.play().catch(e => console.log("Autoplay prevented, user interaction may be needed"));
+        }
+    </script>
 </body>
 </html>
