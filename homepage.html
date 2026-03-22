@@ -114,7 +114,7 @@ body {
     background: #c2b23e;
 }
 
-/* Sleek Side Navigation */
+/* Sleek Side Navigation - Updated Menu Items */
 .side-nav-premium {
     position: fixed;
     top: 0;
@@ -155,7 +155,6 @@ body {
 .side-nav-premium ul li:nth-child(1) { --i: 1; }
 .side-nav-premium ul li:nth-child(2) { --i: 2; }
 .side-nav-premium ul li:nth-child(3) { --i: 3; }
-.side-nav-premium ul li:nth-child(4) { --i: 4; }
 
 .side-nav-premium ul li a {
     color: #fff;
@@ -251,20 +250,22 @@ body {
     right: -40px;
 }
 
-/* Elegant Icon Grid - Phone First Design */
+/* UNIFORM ICON GRID - All cards now have consistent dimensions */
 .icon-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 130px));
+    grid-template-columns: repeat(auto-fit, minmax(130px, 160px));
     gap: 28px 20px;
     justify-content: center;
-    align-items: start;
+    align-items: center;
     margin-top: 30px;
 }
 
+/* FIXED SIZE CARD - All cards identical dimensions */
 .icon-card {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-decoration: none;
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(4px);
@@ -273,35 +274,31 @@ body {
     transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     border: 1px solid rgba(255, 255, 255, 0.08);
     cursor: pointer;
-}
-
-.icon-card:hover {
-    transform: translateY(-8px);
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(194, 178, 62, 0.4);
-    box-shadow: 0 20px 35px -15px rgba(0,0,0,0.4);
-}
-
-.icon-card:active {
-    transform: translateY(-2px);
-}
-
-/* Reduced Icon Size as Requested */
-.icon-card img {
-    width: clamp(60px, 13vw, 85px);
+    min-width: 0; /* Prevents overflow */
+    width: 100%;
     height: auto;
+    box-sizing: border-box;
+}
+
+/* UNIFORM ICON SIZE - All images forced to same dimensions */
+.icon-card img {
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
     transition: transform 0.3s ease;
     filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    display: block;
+    margin: 0 auto;
 }
 
 .icon-card:hover img {
     transform: scale(1.05);
 }
 
-/* Text Label Below Icon - Enhanced Styling */
+/* UNIFORM LABEL STYLE - Consistent text block */
 .icon-label {
     margin-top: 14px;
-    font-size: clamp(0.7rem, 3.5vw, 0.85rem);
+    font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -313,6 +310,18 @@ body {
     transition: all 0.3s ease;
     width: fit-content;
     max-width: 100%;
+    text-align: center;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+/* For smaller screens, allow label to wrap if needed */
+@media (max-width: 550px) {
+    .icon-label {
+        white-space: normal;
+        font-size: 0.7rem;
+        padding: 4px 10px;
+    }
 }
 
 .icon-card:hover .icon-label {
@@ -321,7 +330,7 @@ body {
     transform: scale(1.02);
 }
 
-/* Premium Social Bar */
+/* PREMIUM SOCIAL BAR - NO DARK BACKGROUND, fully transparent/glass effect */
 .social-links {
     position: fixed;
     bottom: 0;
@@ -331,10 +340,11 @@ body {
     justify-content: center;
     gap: 35px;
     padding: 18px 20px;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(15px);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
     z-index: 90;
+    transition: all 0.3s ease;
 }
 
 .social-icon {
@@ -347,14 +357,15 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(4px);
     transition: all 0.3s ease;
 }
 
 .social-icon:hover {
     color: #c2b23e;
     transform: translateY(-5px);
-    background: rgba(194, 178, 62, 0.15);
+    background: rgba(194, 178, 62, 0.25);
 }
 
 /* ========== RESPONSIVE DESIGN - PHONE EXCELLENCE ========== */
@@ -384,21 +395,24 @@ body {
         margin-bottom: 35px;
     }
     
-    /* Phone optimized grid: exactly 2 columns for better touch targets */
+    /* Phone optimized grid: 2 columns with uniform card sizing */
     .icon-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(130px, 150px));
         gap: 18px;
-        max-width: 400px;
         margin-left: auto;
         margin-right: auto;
+        justify-content: center;
     }
     
     .icon-card {
         padding: 16px 10px 12px;
+        min-height: auto;
     }
     
+    /* Uniform icon size on mobile */
     .icon-card img {
-        width: 70px;
+        width: 65px;
+        height: 65px;
     }
     
     .icon-label {
@@ -406,11 +420,31 @@ body {
         padding: 5px 10px;
         margin-top: 10px;
         letter-spacing: 0.5px;
+        white-space: nowrap;
+    }
+    
+    /* For very small screens allow text wrap */
+    @media (max-width: 420px) {
+        .icon-label {
+            white-space: normal;
+            font-size: 0.62rem;
+            padding: 4px 8px;
+        }
+        .icon-card img {
+            width: 58px;
+            height: 58px;
+        }
+        .icon-grid {
+            gap: 14px;
+            grid-template-columns: repeat(2, minmax(110px, 1fr));
+        }
     }
     
     .social-links {
         gap: 25px;
         padding: 12px 20px;
+        background: transparent;
+        backdrop-filter: blur(10px);
     }
     
     .social-icon {
@@ -435,22 +469,17 @@ body {
 
 /* Small phones (below 400px) */
 @media (max-width: 480px) {
-    .icon-grid {
-        gap: 14px;
-    }
-    
-    .icon-card {
-        padding: 14px 8px 10px;
-    }
-    
     .icon-card img {
         width: 58px;
+        height: 58px;
     }
     
     .icon-label {
         font-size: 0.6rem;
         padding: 4px 8px;
         margin-top: 8px;
+        white-space: normal;
+        line-height: 1.3;
     }
     
     .hero-section h1 {
@@ -464,29 +493,39 @@ body {
     .side-nav-premium ul li a {
         font-size: 1.3rem;
     }
+    
+    .icon-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .icon-card {
+        padding: 12px 8px 10px;
+    }
 }
 
-/* Tablets and medium screens - 3 columns */
+/* Tablets and medium screens - 3 columns with uniform size */
 @media (min-width: 641px) and (max-width: 1024px) {
     .icon-grid {
-        grid-template-columns: repeat(3, minmax(110px, 140px));
+        grid-template-columns: repeat(3, minmax(130px, 150px));
         gap: 25px;
     }
     
     .icon-card img {
-        width: 80px;
+        width: 75px;
+        height: 75px;
     }
     
     .icon-label {
-        font-size: 0.75rem;
+        font-size: 0.72rem;
         padding: 6px 12px;
     }
 }
 
-/* Laptop and Desktop - Elegant 3 column layout */
+/* Laptop and Desktop - Elegant 3 column layout uniform */
 @media (min-width: 1025px) {
     .icon-grid {
-        grid-template-columns: repeat(3, minmax(130px, 160px));
+        grid-template-columns: repeat(3, minmax(150px, 170px));
         gap: 40px;
     }
     
@@ -495,7 +534,8 @@ body {
     }
     
     .icon-card img {
-        width: 90px;
+        width: 85px;
+        height: 85px;
     }
     
     .icon-label {
@@ -513,27 +553,34 @@ body {
     .logo-container img {
         height: 48px;
     }
+    
+    .social-links {
+        background: transparent;
+        backdrop-filter: blur(12px);
+    }
 }
 
-/* Landscape orientation for phones */
+/* Landscape orientation for phones - maintain uniform sizing */
 @media (max-width: 850px) and (orientation: landscape) {
     .main-content {
         padding: 70px 20px 70px;
     }
     
     .icon-grid {
-        grid-template-columns: repeat(3, minmax(85px, 110px));
+        grid-template-columns: repeat(3, minmax(110px, 130px));
         gap: 15px;
     }
     
     .icon-card img {
         width: 55px;
+        height: 55px;
     }
     
     .icon-label {
         font-size: 0.6rem;
         padding: 3px 8px;
         margin-top: 6px;
+        white-space: nowrap;
     }
     
     .hero-section {
@@ -567,6 +614,34 @@ html {
     background: #c2b23e;
     color: #0a0a0a;
 }
+
+/* Additional fix for image consistency - ensures no distorted aspect ratio */
+.icon-card img[src*="balustrade"], 
+.icon-card img[src*="shower"],
+.icon-card img[src*="gazebo"],
+.icon-card img[src*="carport"],
+.icon-card img[src*="curtain"],
+.icon-card img[src*="Modern"] {
+    object-fit: contain;
+    width: 100%;
+    height: auto;
+    max-width: 75px;
+    max-height: 75px;
+}
+
+@media (max-width: 640px) {
+    .icon-card img {
+        max-width: 65px;
+        max-height: 65px;
+    }
+}
+
+@media (max-width: 480px) {
+    .icon-card img {
+        max-width: 58px;
+        max-height: 58px;
+    }
+}
 </style>
 </head>
 
@@ -590,13 +665,10 @@ html {
     <span></span>
 </div>
 
-<!-- Premium Side Navigation -->
+<!-- Premium Side Navigation - Updated: Contact only, removed Portfolio/Studio/Home -->
 <div class="side-nav-premium" id="premiumSideNav">
     <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Portfolio</a></li>
-        <li><a href="#">Studio</a></li>
-        <li><a href="#">Concierge</a></li>
+        <li><a href="#contact">Contact</a></li>
     </ul>
 </div>
 
@@ -609,37 +681,37 @@ html {
             <div class="subtitle">BY BRHILL ELITE</div>
         </div>
         
-        <!-- Elegant Icon Grid with Labels -->
+        <!-- Elegant Icon Grid with Uniform Sizing - All icons now same dimensions -->
         <div class="icon-grid">
             <a href="gazebo.html" class="icon-card">
-                <img src="gazebo.png" alt="Gazebo">
+                <img src="gazebo.png" alt="Gazebo" style="width:75px; height:75px; object-fit:contain;">
                 <span class="icon-label">GAZEBO</span>
             </a>
             <a href="carports.html" class="icon-card">
-                <img src="carport.png" alt="Carports">
+                <img src="carport.png" alt="Carports" style="width:75px; height:75px; object-fit:contain;">
                 <span class="icon-label">CARPORTS</span>
             </a>
             <a href="balustrades.html" class="icon-card">
-                <img src="balustrade.png" alt="Balustrades">
+                <img src="balustrade.png" alt="Balustrades" style="width:75px; height:75px; object-fit:contain;">
                 <span class="icon-label">BALUSTRADES</span>
             </a>
             <a href="shower cubicles.html" class="icon-card">
-                <img src="shower cubicle.png" alt="Shower Cubicles">
+                <img src="shower cubicle.png" alt="Shower Cubicles" style="width:75px; height:75px; object-fit:contain;">
                 <span class="icon-label">SHOWER</span>
             </a>
             <a href="curtain wall.html" class="icon-card">
-                <img src="Screenshot_2026-02-25_12.55.41_PM-removebg-preview.png" alt="Curtain Wall">
+                <img src="Screenshot_2026-02-25_12.55.41_PM-removebg-preview.png" alt="Curtain Wall" style="width:75px; height:75px; object-fit:contain;">
                 <span class="icon-label">CURTAIN WALL</span>
             </a>
-            <a href="page6.html" class="icon-card">
-                <img src="Screenshot_2026-02-25_12.55.54_PM-removebg-preview.png" alt="Modern Elite">
-                <span class="icon-label">MODERN ELITE</span>
+            <a href="glass facades.html" class="icon-card">
+                <img src="Screenshot_2026-02-25_12.55.54_PM-removebg-preview.png" alt="Modern Elite" style="width:75px; height:75px; object-fit:contain;">
+                <span class="icon-label">GLASS FACADES </span>
             </a>
         </div>
     </div>
 </main>
 
-<!-- Social Bar - Elegant Floating -->
+<!-- Social Bar - NO DARK BACKGROUND (transparent glass effect) -->
 <div class="social-links">
     <a href="https://www.instagram.com/vista_orizon/" target="_blank" class="social-icon" aria-label="Instagram">
         <i class="fab fa-instagram"></i>
@@ -669,7 +741,7 @@ function togglePremiumMenu() {
     }
 }
 
-// Close menu when clicking on a navigation link
+// Close menu when clicking on navigation link (Contact)
 document.querySelectorAll('.side-nav-premium ul li a').forEach(link => {
     link.addEventListener('click', (e) => {
         const menuBtn = document.getElementById('menuToggle');
@@ -681,20 +753,27 @@ document.querySelectorAll('.side-nav-premium ul li a').forEach(link => {
             document.body.style.overflow = '';
         }
         
-        // Optional: smooth scroll to sections if needed
+        // For contact link, handle smooth scroll if needed or allow navigation
         const href = link.getAttribute('href');
-        if (href && href !== '#') {
-            // Allow normal navigation
+        if (href && href === '#contact') {
+            e.preventDefault();
+            // Optional: Scroll to contact section or show contact info
+            // For now we can show an alert or scroll to top
+            alert('📞 Contact Vista Orizon: +254 116 589060 | hello@vistaorizon.com');
+        } else if (href && href !== '#') {
+            // Allow normal navigation for other pages
             return;
+        } else {
+            e.preventDefault();
         }
-        e.preventDefault();
     });
 });
 
-// Close menu when clicking outside (optional but nice on desktop)
+// Close menu when clicking outside (desktop & mobile enhancement)
 document.addEventListener('click', (e) => {
     const menuBtn = document.getElementById('menuToggle');
     const sideNav = document.getElementById('premiumSideNav');
+    if (!sideNav || !menuBtn) return;
     const isClickInsideNav = sideNav.contains(e.target);
     const isClickOnMenuBtn = menuBtn.contains(e.target);
     
@@ -708,7 +787,7 @@ document.addEventListener('click', (e) => {
 // Handle window resize - reset body overflow if menu is open on resize
 window.addEventListener('resize', () => {
     const sideNav = document.getElementById('premiumSideNav');
-    if (window.innerWidth > 768 && sideNav.classList.contains('active')) {
+    if (sideNav && window.innerWidth > 768 && sideNav.classList.contains('active')) {
         const menuBtn = document.getElementById('menuToggle');
         menuBtn.classList.remove('active');
         sideNav.classList.remove('active');
@@ -716,7 +795,7 @@ window.addEventListener('resize', () => {
     }
 });
 
-// Add subtle animation on load
+// Add subtle animation on load with uniform card appearance
 window.addEventListener('DOMContentLoaded', () => {
     const cards = document.querySelectorAll('.icon-card');
     cards.forEach((card, index) => {
@@ -727,6 +806,17 @@ window.addEventListener('DOMContentLoaded', () => {
             card.style.opacity = '1';
             card.style.transform = 'translateY(0)';
         }, 100 + (index * 50));
+    });
+    
+    // Additional fix to ensure all images are forced to uniform container size
+    const allImages = document.querySelectorAll('.icon-card img');
+    allImages.forEach(img => {
+        // Guarantee each image has consistent dimensions set by CSS and inline fallback
+        if (!img.style.width) {
+            img.style.width = '75px';
+            img.style.height = '75px';
+        }
+        img.style.objectFit = 'contain';
     });
 });
 
@@ -739,6 +829,12 @@ document.addEventListener('touchend', (e) => {
     }
     lastTouchEnd = now;
 }, false);
+
+// Ensure social bar background stays transparent even after any dynamic changes
+const socialBar = document.querySelector('.social-links');
+if (socialBar) {
+    socialBar.style.background = 'transparent';
+}
 </script>
 </body>
 </html>
