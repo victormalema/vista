@@ -1,264 +1,839 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vista Orizon · loading</title>
-
-  <!-- Google Fonts: elegant Poppins -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vista Orizon | Transition to Home</title>
   <style>
-    * {
+    /* ========================================
+       ROOT VARIABLES & RESET
+       ======================================== */
+    :root {
+      --bg-deep: #0c0c0f;
+      --bg-surface: rgba(255, 255, 255, 0.03);
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --text-primary: #f5f0e8;
+      --text-secondary: rgba(245, 240, 232, 0.55);
+      --accent: #c9a96e;
+      --accent-soft: rgba(201, 169, 110, 0.15);
+      --shadow-glow: rgba(201, 169, 110, 0.2);
+      --glass-blur: 24px;
+      --serif: Georgia, 'Times New Roman', Times, serif;
+      --sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    *, *::before, *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
     body {
       min-height: 100vh;
-      background: radial-gradient(circle at 30% 20%, #1b1b2c, #0a0a12 90%);
-      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-deep);
+      color: var(--text-primary);
+      font-family: var(--sans);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ========================================
+       BACKGROUND LAYERS — Vintage + Contemporary
+       ======================================== */
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Animated gradient orbs for depth */
+    .bg-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.35;
+      animation: orbFloat 20s ease-in-out infinite;
+    }
+
+    .bg-orb:nth-child(1) {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(201,169,110,0.18), transparent 70%);
+      top: -10%;
+      left: -10%;
+      animation-delay: 0s;
+    }
+
+    .bg-orb:nth-child(2) {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(140,120,180,0.12), transparent 70%);
+      bottom: -15%;
+      right: -10%;
+      animation-delay: -7s;
+      animation-duration: 25s;
+    }
+
+    .bg-orb:nth-child(3) {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(100,140,160,0.10), transparent 70%);
+      top: 40%;
+      left: 60%;
+      animation-delay: -14s;
+      animation-duration: 22s;
+    }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(40px, -30px) scale(1.08); }
+      66% { transform: translate(-30px, 20px) scale(0.95); }
+    }
+
+    /* Subtle geometric pattern overlay */
+    .bg-pattern {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.035;
+      background-image:
+        radial-gradient(circle at 25% 25%, rgba(255,255,255,0.15) 1px, transparent 1px),
+        radial-gradient(circle at 75% 75%, rgba(255,255,255,0.1) 1px, transparent 1px);
+      background-size: 60px 60px, 40px 40px;
+      animation: patternShift 30s linear infinite;
+    }
+
+    @keyframes patternShift {
+      0% { background-position: 0 0, 0 0; }
+      100% { background-position: 60px 60px, -40px -40px; }
+    }
+
+    /* Noise texture for vintage paper feel */
+    .bg-noise {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+    }
+
+    /* Vignette for depth */
+    .bg-vignette {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(0,0,0,0.4) 100%);
+    }
+
+    /* ========================================
+       LOADER STAGE
+       ======================================== */
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      padding: 1rem;
+      padding: 1.5rem;
+      transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.9s;
     }
 
-    /* main loading card */
-    .loading-splash {
-      max-width: 800px;
+    #loader.done {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-card {
       width: 100%;
-      background: rgba(5, 5, 15, 0.4);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      border-radius: 4rem;
-      padding: 3rem 2rem;
-      box-shadow: 0 35px 70px -15px #000000, 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+      max-width: 520px;
+      background: var(--bg-surface);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--border-subtle);
+      border-radius: 2rem;
+      padding: clamp(2.5rem, 6vw, 4rem) clamp(2rem, 5vw, 3.5rem);
+      box-shadow:
+        0 32px 64px -16px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(255,255,255,0.03) inset,
+        0 0 80px -20px var(--shadow-glow);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-    }
-
-    /* Logo animation */
-    .logo-frame {
-      animation: popAndGlow 1.4s ease-out forwards;
-      opacity: 0;
-      transform: scale(0.3) rotate(-6deg);
-      filter: drop-shadow(0 15px 25px #000000);
-      margin-bottom: 2rem;
-    }
-
-    @keyframes popAndGlow {
-      0% { opacity: 0; transform: scale(0.2) rotate(-12deg); }
-      50% { opacity: 1; transform: scale(1.15) rotate(1.5deg); }
-      80% { transform: scale(0.98) rotate(0deg); }
-      100% { opacity: 1; transform: scale(1) rotate(0); }
-    }
-
-    .logo-frame img {
-      width: 220px;
-      max-width: 65vw;
-      height: auto;
-      border-radius: 40px;
-      box-shadow: 0 30px 50px -15px black;
-      transition: transform 0.4s ease;
-      display: block;
-    }
-
-    .logo-frame img:hover {
-      transform: scale(1.02);
-    }
-
-    /* text effect container */
-    .text-zone {
-      margin-top: 1.2rem;
-      margin-bottom: 0.8rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-    }
-
-    /* main animated text - SIMPLIFIED without reflection/underline */
-    .splash-text {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      font-size: clamp(2.2rem, 12vw, 4.2rem);
-      color: white;
-      cursor: default;
-      white-space: nowrap;
-      opacity: 0;
-      padding: 0 0.5rem;
-      letter-spacing: 5px;
-      text-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
-      transition: text-shadow 0.3s;
-      display: inline-block;
-      position: relative;
-    }
-
-    .splash-text:hover {
-      text-shadow: 0 0 20px #ffffff90, 0 0 35px #b0c8ff;
-    }
-
-    /* loading bar container with timer */
-    .loading-indicator {
-      margin-top: 2.8rem;
-      width: 200px;
-      height: 3px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 40px;
+      text-align: center;
       position: relative;
       overflow: hidden;
     }
 
-    .loading-progress {
+    /* Shimmer edge on loader card */
+    .loader-card::before {
+      content: '';
       position: absolute;
-      width: 0%;
-      height: 100%;
-      background: linear-gradient(90deg, #a7c0ff, #ffffff);
-      border-radius: 40px;
-      left: 0;
-      top: 0;
-      transition: width 0.1s linear;
-      box-shadow: 0 0 12px #a7c0ff;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1.5px;
+      background: linear-gradient(135deg, rgba(201,169,110,0.3), transparent 40%, transparent 60%, rgba(201,169,110,0.15));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0.6;
     }
 
-    /* countdown timer text */
-    .countdown {
-      margin-top: 1.2rem;
-      font-size: 1rem;
+    /* Monogram */
+    .monogram-wrap {
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .monogram-ring {
+      width: 110px;
+      height: 110px;
+      position: relative;
+    }
+
+    .monogram-ring svg.ring-spinner {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .monogram-ring svg.ring-spinner circle.track {
+      fill: none;
+      stroke: rgba(255,255,255,0.08);
+      stroke-width: 2.5;
+    }
+
+    .monogram-ring svg.ring-spinner circle.fill {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-dasharray: 283;
+      stroke-dashoffset: 283;
+      transition: stroke-dashoffset 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      filter: drop-shadow(0 0 6px var(--shadow-glow));
+    }
+
+    .monogram-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 2rem;
       font-weight: 400;
       letter-spacing: 2px;
-      color: rgba(255, 255, 255, 0.6);
+      color: var(--text-primary);
+      animation: monogramReveal 0.8s ease-out 0.3s both;
     }
 
-    #timerSeconds {
-      font-weight: 700;
-      color: white;
-      background: rgba(255,255,255,0.1);
-      padding: 0.2rem 0.8rem;
-      border-radius: 60px;
-      display: inline-block;
-      margin-left: 6px;
+    @keyframes monogramReveal {
+      from { opacity: 0; transform: scale(0.85); }
+      to { opacity: 1; transform: scale(1); }
     }
 
-    /* version tag */
-    .version-tag {
-      margin-top: 2rem;
+    /* Brand name */
+    .brand-name {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      font-weight: 400;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+
+    .brand-tagline {
+      font-family: var(--sans);
+      font-size: clamp(0.75rem, 2vw, 0.85rem);
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+    }
+
+    /* Progress */
+    .progress-wrap {
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 3px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 3px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(201,169,110,0.6), var(--accent), rgba(201,169,110,0.8));
+      border-radius: 3px;
+      transition: width 0.15s linear;
+      box-shadow: 0 0 12px var(--shadow-glow);
+      position: relative;
+    }
+
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent), 0 0 24px var(--shadow-glow);
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 0.75rem;
+      padding: 0 0.1rem;
+    }
+
+    .progress-percent {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+      min-width: 2.5rem;
+      text-align: left;
+    }
+
+    .progress-status {
+      font-family: var(--sans);
       font-size: 0.7rem;
       font-weight: 400;
-      letter-spacing: 4px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.25);
-      border-top: 1px dashed rgba(255, 255, 255, 0.1);
-      padding-top: 1.2rem;
-      width: 70%;
-      text-align: center;
+      color: var(--text-secondary);
+      text-align: right;
+      flex: 1;
+      margin-left: 1rem;
     }
 
-    @media (max-width: 450px) {
-      .loading-splash {
-        padding: 2.2rem 1rem;
-        border-radius: 3rem;
+    /* Loader footer */
+    .loader-footer {
+      margin-top: 2rem;
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.2);
+      position: relative;
+    }
+
+    .loader-footer::before {
+      content: '';
+      position: absolute;
+      top: -1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,169,110,0.3), transparent);
+    }
+
+    /* Pulse animation on loading */
+    @keyframes softPulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* ========================================
+       HERO STAGE (Initially hidden)
+       ======================================== */
+    #hero {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1) 0.15s, visibility 1s 0.15s;
+    }
+
+    #hero.revealed {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .hero-inner {
+      text-align: center;
+      max-width: 640px;
+      transform: translateY(20px) scale(0.98);
+      filter: blur(6px);
+      transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.25s, filter 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
+    }
+
+    #hero.revealed .hero-inner {
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    .hero-greeting {
+      font-family: var(--sans);
+      font-size: clamp(0.7rem, 2vw, 0.8rem);
+      font-weight: 500;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s;
+    }
+
+    #hero.revealed .hero-greeting {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 9vw, 5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 0.9s ease 0.75s, transform 0.9s ease 0.75s;
+    }
+
+    #hero.revealed .hero-title {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin: 0 auto 1.5rem;
+      opacity: 0;
+      transform: scaleX(0);
+      transition: opacity 0.6s ease 0.9s, transform 0.6s ease 0.9s;
+    }
+
+    #hero.revealed .hero-divider {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    .hero-subtitle {
+      font-family: var(--sans);
+      font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+      font-weight: 400;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.8s ease 1s, transform 0.8s ease 1s;
+    }
+
+    #hero.revealed .hero-subtitle {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2.5rem;
+      background: transparent;
+      border: 1px solid rgba(201, 169, 110, 0.4);
+      border-radius: 60px;
+      color: var(--accent);
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      transform: translateY(10px);
+      /* combine both transitions carefully: we need two separate groups? 
+         We'll merge via transition for all properties but to keep specific delays we use separate */
+      transition-property: opacity, transform, border-color, box-shadow, letter-spacing;
+      transition-duration: 0.8s, 0.8s, 0.3s, 0.3s, 0.3s;
+      transition-delay: 1.1s, 1.1s, 0s, 0s, 0s;
+      transition-timing-function: ease, ease, cubic-bezier(0.4, 0, 0.2, 1), cubic-bezier(0.4, 0, 0.2, 1), cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    #hero.revealed .hero-cta {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--accent-soft), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .hero-cta:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 30px -5px var(--shadow-glow), 0 0 0 1px rgba(201,169,110,0.2) inset;
+      letter-spacing: 3.5px;
+      transform: translateY(-2px);
+    }
+
+    .hero-cta:hover::before {
+      opacity: 1;
+    }
+
+    .hero-cta span,
+    .hero-cta svg {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-cta svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      transition: transform 0.3s ease;
+    }
+
+    .hero-cta:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Decorative corner flourishes */
+    .flourish {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      opacity: 0;
+      transition: opacity 1s ease 1.3s;
+    }
+
+    #hero.revealed .flourish {
+      opacity: 0.15;
+    }
+
+    .flourish svg {
+      width: 100%;
+      height: 100%;
+      stroke: var(--accent);
+      stroke-width: 1;
+      fill: none;
+    }
+
+    .flourish-tl { top: 2.5rem; left: 2.5rem; }
+    .flourish-tr { top: 2.5rem; right: 2.5rem; transform: scaleX(-1); }
+    .flourish-bl { bottom: 2.5rem; left: 2.5rem; transform: scaleY(-1); }
+    .flourish-br { bottom: 2.5rem; right: 2.5rem; transform: scale(-1); }
+
+    /* ========================================
+       RESPONSIVE
+       ======================================== */
+    @media (max-width: 480px) {
+      .loader-card {
+        border-radius: 1.5rem;
+        padding: 2rem 1.5rem;
       }
-      .splash-text {
-        letter-spacing: 2px;
+
+      .monogram-ring {
+        width: 90px;
+        height: 90px;
       }
+
+      .monogram-content {
+        font-size: 1.6rem;
+      }
+
+      .hero-title {
+        font-size: clamp(2.2rem, 10vw, 3rem);
+      }
+
+      .flourish {
+        display: none;
+      }
+    }
+
+    @media (min-width: 1400px) {
+      .loader-card {
+        max-width: 560px;
+      }
+    }
+
+    /* Reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* additional fade class for page link transition (optional but smooth) */
+    .page-transition-out {
+      animation: fadeOutPage 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes fadeOutPage {
+      0% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
     }
   </style>
 </head>
 <body>
 
-<div class="loading-splash">
+  <!-- ========== BACKGROUND ========== -->
+  <div class="bg-layer">
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+  </div>
+  <div class="bg-pattern"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-vignette"></div>
 
-  <!-- LOGO -->
-  <div class="logo-frame">
-    <img 
-      src="553106437_17845870137574455_8823922694648873162_n.jpg" 
-      alt="Vista Orizon emblem"
-      onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22200%22%20height%3D%22200%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2245%22%20fill%3D%22%231e2a4a%22%20stroke%3D%22%23aaccff%22%20stroke-width%3D%223%22%2F%3E%3Ctext%20x%3D%2220%22%20y%3D%2265%22%20fill%3D%22%23ffffff%22%20font-size%3D%2214%22%3EVO%3C%2Ftext%3E%3C%2Fsvg%3E';"
-    >
+  <!-- ========== LOADER STAGE ========== -->
+  <div id="loader">
+    <div class="loader-card">
+
+      <!-- Monogram with circular progress -->
+      <div class="monogram-wrap">
+        <div class="monogram-ring">
+          <svg class="ring-spinner" viewBox="0 0 100 100">
+            <circle class="track" cx="50" cy="50" r="45"/>
+            <circle class="fill" id="ringFill" cx="50" cy="50" r="45"/>
+          </svg>
+          <div class="monogram-content">VO</div>
+        </div>
+      </div>
+
+      <!-- Brand -->
+      <h1 class="brand-name">Vista Orizon</h1>
+      <p class="brand-tagline">Estates &amp; Collection</p>
+
+      <!-- Linear progress + status -->
+      <div class="progress-wrap">
+        <div class="progress-track">
+          <div class="progress-fill" id="progressBar"></div>
+        </div>
+        <div class="progress-meta">
+          <span class="progress-percent" id="percentText">0%</span>
+          <span class="progress-status" id="statusText">Initializing</span>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="loader-footer">Please wait</div>
+
+    </div>
   </div>
 
-  <!-- TYPOGRAPHY section (VISTA ORIZON) - SIMPLIFIED without spans -->
-  <div class="text-zone">
-    <p class="splash-text" id="typingTarget"></p>
+  <!-- ========== HERO STAGE ========== -->
+  <div id="hero">
+
+    <!-- Corner flourishes -->
+    <div class="flourish flourish-tl">
+      <svg viewBox="0 0 40 40"><path d="M0 40 L0 10 Q0 0 10 0 L40 0"/></svg>
+    </div>
+    <div class="flourish flourish-tr">
+      <svg viewBox="0 0 40 40"><path d="M0 40 L0 10 Q0 0 10 0 L40 0"/></svg>
+    </div>
+    <div class="flourish flourish-bl">
+      <svg viewBox="0 0 40 40"><path d="M0 40 L0 10 Q0 0 10 0 L40 0"/></svg>
+    </div>
+    <div class="flourish flourish-br">
+      <svg viewBox="0 0 40 40"><path d="M0 40 L0 10 Q0 0 10 0 L40 0"/></svg>
+    </div>
+
+    <div class="hero-inner">
+      <p class="hero-greeting">Welcome to</p>
+      <h2 class="hero-title">Vista<br><em>Orizon</em></h2>
+      <div class="hero-divider"></div>
+      <p class="hero-subtitle">
+        Where timeless elegance meets modern living.<br>
+        Discover a curated world of refined estates<br>
+        and extraordinary experiences.
+      </p>
+      <!-- CONNECTION TO HOMEPAGE.HTML: Now the button navigates to homepage.html with a smooth transition effect -->
+      <a href="homepage.html" class="hero-cta" id="enterButton">
+        <span>Enter</span>
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
   </div>
 
-  <!-- loading bar with progress -->
-  <div class="loading-indicator">
-    <div class="loading-progress" id="progressBar"></div>
-  </div>
+  <script>
+    (function() {
+      /* ================================
+         REALISTIC LOADING SIMULATION
+         ================================ */
+      const ringFill = document.getElementById('ringFill');
+      const progressBar = document.getElementById('progressBar');
+      const percentText = document.getElementById('percentText');
+      const statusText = document.getElementById('statusText');
+      const loader = document.getElementById('loader');
+      const hero = document.getElementById('hero');
 
-  <!-- countdown display (seconds) -->
-  <div class="countdown">
-    entering in <span id="timerSeconds">4</span>s
-  </div>
+      const RING_CIRCUMFERENCE = 2 * Math.PI * 45; // ~283
 
-  <!-- tiny silent version -->
-  <div class="version-tag">
-    <span>✦ vista orizon ✦</span>
-  </div>
-</div>
+      const statusMessages = [
+        { threshold: 0,  text: 'Initializing' },
+        { threshold: 12, text: 'Loading assets' },
+        { threshold: 28, text: 'Resolving content' },
+        { threshold: 45, text: 'Optimizing layout' },
+        { threshold: 62, text: 'Fetching imagery' },
+        { threshold: 78, text: 'Finalizing styles' },
+        { threshold: 92, text: 'Preparing view' },
+        { threshold: 100, text: 'Ready' }
+      ];
 
-<script>
-  (function() {
-    // ========== REDIRECT TARGET: LOCAL HOMEPAGE ==========
-    const HOME_PAGE_URL = "homepage.html";
+      let progress = 0;
+      let lastTimestamp = 0;
+      let elapsed = 0;
+      const TARGET_DURATION = 3200; // ~3.2 seconds total
 
-    // ========== TYPING ANIMATION ==========
-    const fullText = "VISTA ORIZON";
-    const target = document.getElementById("typingTarget");
-
-    // Wait a moment for logo pop, then reveal and start typing
-    setTimeout(() => {
-      target.style.opacity = '1';
-      target.innerText = ''; // Clear any existing text
-
-      // start typing animation
-      let idx = 0;
-      const typingInterval = setInterval(() => {
-        idx++;
-        target.innerText = fullText.substring(0, idx);
-        if (idx >= fullText.length) {
-          clearInterval(typingInterval);
-        }
-      }, 110);
-    }, 1000); // delay to sync with logo animation
-
-    // ========== LOADING TIMER (4 seconds) + PROGRESS + REDIRECT ==========
-    const totalSeconds = 4;
-    const progressBar = document.getElementById('progressBar');
-    const timerSpan = document.getElementById('timerSeconds');
-
-    let timeLeft = totalSeconds;
-    timerSpan.textContent = timeLeft;
-
-    // update progress bar and timer every 100ms for smoothness
-    const interval = setInterval(() => {
-      timeLeft -= 0.1;
-      const displayTime = Math.max(0, timeLeft).toFixed(1);
-      timerSpan.textContent = displayTime;
-
-      const percent = ((totalSeconds - timeLeft) / totalSeconds) * 100;
-      progressBar.style.width = Math.min(100, percent) + '%';
-
-      if (timeLeft <= 0) {
-        clearInterval(interval);
-        window.location.href = HOME_PAGE_URL;
+      // Variable speed curve: fast at start, slow in middle, fast at end
+      function speedCurve(t) {
+        if (t < 0.2) return 2.0;
+        if (t < 0.5) return 0.6;
+        if (t < 0.75) return 0.9;
+        return 1.6;
       }
-    }, 100);
 
-    // fallback timeout
-    setTimeout(() => {
-      window.location.href = HOME_PAGE_URL;
-    }, totalSeconds * 1000 + 200);
-  })();
-</script>
+      function updateUI(pct) {
+        // Ring
+        const offset = RING_CIRCUMFERENCE - (pct / 100) * RING_CIRCUMFERENCE;
+        ringFill.style.strokeDashoffset = Math.max(0, offset);
 
+        // Bar
+        progressBar.style.width = pct + '%';
+
+        // Percent text
+        percentText.textContent = Math.floor(pct) + '%';
+
+        // Status text
+        for (let i = statusMessages.length - 1; i >= 0; i--) {
+          if (pct >= statusMessages[i].threshold) {
+            if (statusText.textContent !== statusMessages[i].text) {
+              statusText.style.opacity = '0.6';
+              setTimeout(() => {
+                statusText.textContent = statusMessages[i].text;
+                statusText.style.opacity = '1';
+              }, 80);
+            }
+            break;
+          }
+        }
+      }
+
+      function animate(timestamp) {
+        if (!lastTimestamp) lastTimestamp = timestamp;
+        const delta = timestamp - lastTimestamp;
+        lastTimestamp = timestamp;
+        elapsed += delta;
+
+        const t = Math.min(elapsed / TARGET_DURATION, 1);
+        const speed = speedCurve(t);
+        const increment = (delta / TARGET_DURATION) * 100 * speed;
+
+        progress = Math.min(progress + increment, 100);
+        updateUI(progress);
+
+        if (progress < 100) {
+          requestAnimationFrame(animate);
+        } else {
+          setTimeout(transitionToHero, 350);
+        }
+      }
+
+      function transitionToHero() {
+        loader.classList.add('done');
+        hero.classList.add('revealed');
+        setTimeout(() => {
+          loader.style.display = 'none';
+          document.body.style.overflow = 'auto';
+        }, 1000);
+      }
+
+      requestAnimationFrame(animate);
+
+      /* ================================
+         HOME.HTML CONNECTION - Enhanced navigation with optional smooth fade
+         ================================ */
+      const enterBtn = document.getElementById('enterButton');
+      if (enterBtn) {
+        enterBtn.addEventListener('click', function(e) {
+          // If the user clicks, we can optionally add an elegant fade-out effect before leaving.
+          // But standard navigation works fine. However, we want to ensure that if home.html exists 
+          // it navigates directly without breaking any user experience.
+          // Since we want a seamless connection, we add a subtle page transition.
+          e.preventDefault();
+          const targetUrl = enterBtn.getAttribute('href'); // "home.html"
+          
+          // Add graceful fade-out to body before leaving
+          document.body.style.pointerEvents = 'none';
+          document.body.classList.add('page-transition-out');
+          
+          // Small delay to let fade-out complete, then navigate
+          setTimeout(() => {
+            window.location.href = targetUrl;
+          }, 400);
+        });
+      }
+
+      // Also optional: For better UX, ensure that after loading the button is fully interactive.
+      // No other conflicts.
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.style.opacity = '1';
+      });
+    })();
+  </script>
 </body>
 </html>
