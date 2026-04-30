@@ -1359,12 +1359,8 @@
         }
 
         // ===== RETURN FUNCTIONALITY =====
-        function goBack() {
-            if (document.referrer && document.referrer !== '' && !document.referrer.includes(window.location.href)) {
-                window.history.back();
-            } else {
-                window.location.href = 'homepage.html';
-            }
+         function goBack() {
+             window.location.href = 'homepage.html';
         }
         
         const pageReturnBtn = document.getElementById('pageReturnBtn');
