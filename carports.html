@@ -1202,22 +1202,29 @@
                     </div>
                 </div>
             </div>
-            <div class="contact__form" id="contactForm">
+                        <form class="contact__form" id="contactForm" action="https://formspree.io/f/mrejblwy" method="POST">
                 <div class="form__group">
                     <label class="form__label" for="formName">Name</label>
-                    <input type="text" id="formName" class="form__input" placeholder="Your name">
+                    <input type="text" id="formName" name="name" class="form__input" placeholder="Your name" required>
                 </div>
                 <div class="form__group">
                     <label class="form__label" for="formEmail">Email</label>
-                    <input type="email" id="formEmail" class="form__input" placeholder="your@email.com">
+                    <input type="email" id="formEmail" name="email" class="form__input" placeholder="your@email.com" required>
+                </div>
+                <div class="form__group">
+                    <label class="form__label" for="formPhone">Phone</label>
+                    <input type="text" id="formPhone" name="phone" class="form__input" placeholder="Phone number">
+                </div>
+                <div class="form__group">
+                    <label class="form__label" for="formBudget">Estimated Budget</label>
+                    <input type="text" id="formBudget" name="budget" class="form__input" placeholder="Estimated budget">
                 </div>
                 <div class="form__group">
                     <label class="form__label" for="formMessage">Project Details</label>
-                    <textarea id="formMessage" class="form__textarea" placeholder="Tell us about your space..."></textarea>
+                    <textarea id="formMessage" name="message" class="form__textarea" placeholder="Tell us about your space..."></textarea>
                 </div>
-                <button type="button" class="btn-submit">Send Inquiry</button>
-            </div>
-        </div>
+                <button type="submit" class="btn-submit">Send Inquiry</button>
+            </form></div>
     </section>
 
     <div class="divider">
