@@ -545,7 +545,7 @@
             font-weight: 400;
             text-transform: uppercase;
             letter-spacing: 0.2em;
-            color: var(--accent);
+            color: var(white);
             margin-bottom: var(--space-4);
         }
 
@@ -555,7 +555,7 @@
             font-size: clamp(1.8rem, 4vw, 3.5rem);
             line-height: 1.0;
             letter-spacing: -0.02em;
-            color: var(--accent);
+            color: var(white);
         }
 
         /* ===== COLLECTION GRID ===== */
@@ -1330,10 +1330,13 @@
 
         // Card Data - SAME image for thumbnail and modal (modalImg uses the same image as thumb)
         const cardData = [
-            { thumb: "Shower cubicles.jpg", modalImg: "Shower cubicles.jpg", title: "", desc: "", caption: "" },
-            { thumb: "xw (1).jpg", modalImg: "xw (1).jpg", title: "", desc: "", caption: "" },
-            { thumb: "xw (2).jpg", modalImg: "xw (2).jpg", title: "", desc: "", caption: "" },
-            { thumb: "xw (7).jpg", modalImg: "xw (7).jpg", title: "", desc: "", caption: "" }
+            { thumb: "xw (1).jpg", modalImg: "xw (1).jpg", title: "Variant 1", desc: "", caption: "" },
+            { thumb: "xw (2).jpg", modalImg: "xw (2).jpg", title: "Variant 2", desc: "", caption: "" },
+            
+            { thumb: "xw (7).jpg", modalImg: "xw (7).jpg", title: "Variant 3", desc: "", caption: "" },
+            { thumb: "30f2684985ec896061aca5796f1b7574.jpg", modalImg: "30f2684985ec896061aca5796f1b7574.jpg", title: "Variant 4", desc: "", caption: "" },
+            { thumb: "ef15fc33eccf9de3ac7916d7433629e4.jpg", modalImg: "ef15fc33eccf9de3ac7916d7433629e4.jpg", title: "Variant 5", desc: "", caption: "" },
+            { thumb: "Shower cubicles.jpg", modalImg: "Shower cubicles.jpg", title: "Variant 6", desc: "", caption: "" }
         ];
 
         // ===== PRELOADER =====
