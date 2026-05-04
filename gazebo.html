@@ -404,29 +404,133 @@
             transform: scale(1.08);
         }
 
+        /* ===== MOBILE HERO — 3-ZONE LAYOUT ===== */
         @media (max-width: 768px) {
-            /* Size hero to match the 16:9 landscape images — no cropping */
             .hero {
-                min-height: unset;
-                aspect-ratio: 16 / 9;
+                min-height: 100dvh;
                 width: 100%;
-                margin-top: 64px; /* push below fixed nav */
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: space-between;
             }
-            .hero__bg,
+
+            /* TOP ZONE — brand tagline */
+            .hero__top-label {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                padding: 100px var(--space-6) var(--space-6);
+                text-align: center;
+                position: relative;
+                z-index: 10;
+            }
+
+            .hero__top-label .label-eyebrow {
+                font-family: var(--font-mono);
+                font-size: 0.62rem;
+                letter-spacing: 0.28em;
+                text-transform: uppercase;
+                color: var(--accent);
+            }
+
+            .hero__top-label .label-rule {
+                width: 32px;
+                height: 1px;
+                background: rgba(194,178,62,0.35);
+                margin: 4px auto;
+            }
+
+            .hero__top-label .label-sub {
+                font-family: var(--font-body);
+                font-size: 0.7rem;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                color: var(--text-secondary);
+            }
+
+            /* MIDDLE ZONE — exact 16:9 image, no crop */
+            .hero__bg {
+                position: relative !important;
+                inset: unset !important;
+                width: 100%;
+                height: calc(100vw * 9 / 16);
+                flex-shrink: 0;
+                z-index: 1;
+                overflow: hidden;
+            }
+
             .hero__bg-slide {
                 position: absolute;
                 inset: 0;
             }
+
             .hero__bg-slide img {
-                object-fit: contain;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
                 object-position: center center;
-                background: #0a0a0a;
-            }
-            .hero__bg-slide.active img {
-                transform: none; /* disable ken-burns — it re-crops the image */
             }
 
-            /* Kill the black gap — bring gallery right up */
+            .hero__bg-slide.active img {
+                transform: none;
+            }
+
+            /* Subtle vignette on image only */
+            .hero__bg::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    to bottom,
+                    rgba(10,10,10,0.25) 0%,
+                    transparent 30%,
+                    transparent 70%,
+                    rgba(10,10,10,0.35) 100%
+                );
+                z-index: 2;
+                pointer-events: none;
+            }
+
+            /* BOTTOM ZONE — title + CTA */
+            .hero__overlay { display: none; }
+
+            .hero__content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: var(--space-8) var(--space-6) var(--space-12);
+                text-align: center;
+                width: 100%;
+                max-width: 100%;
+                position: relative;
+                z-index: 10;
+                flex: 1;
+            }
+
+            .hero__eyebrow { display: none; }
+
+            .hero__title {
+                font-size: clamp(2rem, 9vw, 3rem);
+            }
+
+            .hero__subtitle {
+                font-size: 0.82rem;
+                max-width: 280px;
+                margin-top: var(--space-4);
+                color: var(--text-secondary);
+            }
+
+            .hero__cta {
+                margin-top: var(--space-6);
+                padding: 12px 32px;
+                font-size: 0.7rem;
+            }
+
+            /* Remove divider, pull gallery flush */
             .divider { display: none; }
             .gallery {
                 padding-top: var(--space-8);
@@ -1219,6 +1323,17 @@
             color: var(--accent);
             background: rgba(194, 178, 62, 0.1);
         }
+
+        /* On mobile: icon-only, compact, tucked to the edge */
+        @media (max-width: 768px) {
+            #pageReturnBtn {
+                padding: 10px 12px;
+                gap: 0;
+            }
+            #pageReturnBtn .return-btn__label {
+                display: none;
+            }
+        }
         
         .gallery__return-wrapper {
             margin-bottom: var(--space-8);
@@ -1244,6 +1359,195 @@
         @media (max-width: 768px) {
             .modal__return-btn {
                 bottom: -48px;
+            }
+        }
+
+        /* ===== HERO EDITORIAL STATEMENT — MOBILE BELOW-IMAGE ZONE ===== */
+
+        /* Hidden on desktop — shown only on mobile */
+        .hero__statement {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            /* Hide desktop hero text elements in bottom zone */
+            .hero__eyebrow,
+            .hero__title,
+            .hero__subtitle,
+            .hero__cta {
+                display: none !important;
+            }
+
+            /* Show the editorial statement */
+            .hero__statement {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                padding: clamp(36px, 10vw, 56px) clamp(24px, 7vw, 40px) clamp(48px, 13vw, 72px);
+                text-align: center;
+                gap: 0;
+                position: relative;
+            }
+
+            /* Subtle top hairline — connects statement to image above */
+            .hero__statement::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 1px;
+                height: 32px;
+                background: linear-gradient(to bottom, rgba(194, 178, 62, 0.5), transparent);
+            }
+
+            /* Label row: rule — text — rule */
+            .hero__statement-label {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                margin-bottom: clamp(28px, 8vw, 40px);
+            }
+
+            .statement-rule {
+                display: block;
+                width: 28px;
+                height: 1px;
+                background: rgba(194, 178, 62, 0.4);
+                flex-shrink: 0;
+            }
+
+            .statement-label-text {
+                font-family: var(--font-mono);
+                font-size: clamp(0.58rem, 2.4vw, 0.68rem);
+                font-weight: 400;
+                letter-spacing: 0.32em;
+                text-transform: uppercase;
+                color: var(--accent);
+                white-space: nowrap;
+                opacity: 0.85;
+            }
+
+            /* Title — large, elegant serif */
+            .hero__statement-title {
+                font-family: var(--font-display);
+                font-weight: 300;
+                font-size: clamp(2.6rem, 11vw, 3.8rem);
+                line-height: 1.08;
+                letter-spacing: -0.02em;
+                color: var(--text-primary);
+                margin-bottom: clamp(22px, 6vw, 32px);
+                text-shadow: 0 2px 24px rgba(0, 0, 0, 0.4);
+            }
+
+            .hero__statement-title em {
+                font-style: italic;
+                font-weight: 400;
+                color: var(--accent);
+            }
+
+            /* Refined separator between title and description */
+            .hero__statement-title::after {
+                content: '';
+                display: block;
+                width: 48px;
+                height: 1px;
+                background: rgba(194, 178, 62, 0.25);
+                margin: clamp(20px, 5vw, 28px) auto 0;
+            }
+
+            /* Description — soft, secondary */
+            .hero__statement-desc {
+                font-family: var(--font-body);
+                font-weight: 300;
+                font-size: clamp(0.82rem, 3.2vw, 0.94rem);
+                line-height: 1.8;
+                letter-spacing: 0.01em;
+                color: var(--text-secondary);
+                max-width: 300px;
+                margin: 0 auto clamp(32px, 9vw, 48px);
+            }
+
+            /* CTA — refined ghost link style */
+            .hero__statement-cta {
+                display: inline-flex;
+                align-items: center;
+                gap: 12px;
+                text-decoration: none;
+                color: var(--text-primary);
+                font-family: var(--font-body);
+                font-size: clamp(0.65rem, 2.6vw, 0.72rem);
+                font-weight: 400;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                padding: 13px 28px;
+                border: 1px solid rgba(194, 178, 62, 0.3);
+                border-radius: 0;               /* Square — more architectural */
+                position: relative;
+                overflow: hidden;
+                transition: color 0.4s ease, border-color 0.4s ease;
+            }
+
+            /* Fill animation on hover */
+            .hero__statement-cta::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: rgba(194, 178, 62, 0.07);
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .hero__statement-cta:hover::before {
+                transform: scaleX(1);
+            }
+
+            .hero__statement-cta:hover {
+                border-color: rgba(194, 178, 62, 0.65);
+                color: var(--accent);
+            }
+
+            .hero__statement-cta:focus-visible {
+                outline: 2px solid var(--accent);
+                outline-offset: 4px;
+            }
+
+            .cta-text {
+                position: relative;
+                z-index: 1;
+            }
+
+            .cta-arrow {
+                position: relative;
+                z-index: 1;
+                font-size: 1rem;
+                transition: transform 0.3s ease;
+                color: var(--accent);
+                opacity: 0.7;
+            }
+
+            .hero__statement-cta:hover .cta-arrow {
+                transform: translateX(4px);
+                opacity: 1;
+            }
+
+            /* Fade-in animation for the statement block */
+            .hero__statement {
+                opacity: 0;
+                animation: statementReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+            }
+
+            @keyframes statementReveal {
+                from {
+                    opacity: 0;
+                    transform: translateY(16px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
             }
         }
     </style>
@@ -1282,7 +1586,7 @@
     </nav>
     
     <!-- Page Return Button (for navigation from external pages) -->
-    <div style="position: fixed; top: 100px; left: 24px; z-index: 999;">
+    <div style="position: fixed; top: 100px; left: 12px; z-index: 999;">
         <button class="return-btn" id="pageReturnBtn" aria-label="Return to previous page">
             <i class="fa-solid fa-arrow-left"></i>
             Return
@@ -1290,9 +1594,15 @@
     </div>
 
     <section class="hero" id="main-content">
+        <div class="hero__top-label">
+            <span class="label-eyebrow">Gazebo Atelier</span>
+            <div class="label-rule"></div>
+            <span class="label-sub">Architectural outdoor structures</span>
+        </div>
         <div class="hero__bg" id="heroBg"></div>
         <div class="hero__overlay"></div>
         <div class="hero__content">
+            <!-- Desktop elements (hidden on mobile) -->
             <div class="hero__eyebrow"></div>
             <h1 class="hero__title">
                 <span class="line1" id="titleLine1"></span><br>
@@ -1300,6 +1610,21 @@
             </h1>
             <p class="hero__subtitle"></p>
             <a href="#gallery" class="hero__cta">View Collection</a>
+
+            <!-- Mobile editorial statement (visible only on mobile, below 16:9 image) -->
+            <div class="hero__statement" aria-hidden="false">
+                <div class="hero__statement-label">
+                    <span class="statement-rule"></span>
+                    <span class="statement-label-text">Architectural Atelier</span>
+                    <span class="statement-rule"></span>
+                </div>
+                <h2 class="hero__statement-title">Where Structure<br>Becomes <em>Art</em></h2>
+                <p class="hero__statement-desc">Bespoke gazebos  designed for spaces that demand more than shelter — they demand presence.</p>
+                <a href="#gallery" class="hero__statement-cta">
+                    <span class="cta-text">Explore the Collection</span>
+                    <span class="cta-arrow">&#8594;</span>
+                </a>
+            </div>
         </div>
     </section>
 
