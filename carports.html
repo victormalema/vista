@@ -397,11 +397,22 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center center;
             transition: transform 20s cubic-bezier(0.25, 0.1, 0.25, 1);
         }
 
         .hero__bg-slide.active img {
             transform: scale(1.08);
+        }
+
+        @media (max-width: 768px) {
+            .hero__bg-slide img {
+                object-position: center 30%;
+            }
+            .hero__bg-slide.active img {
+                /* Reduce the ken-burns scale on mobile so it doesn't look zoomed */
+                transform: scale(1.03);
+            }
         }
 
         /* Dynamic gradient overlay */

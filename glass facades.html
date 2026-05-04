@@ -385,8 +385,14 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center;
+            object-position: center center;
             z-index: 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero__bg-video {
+                object-position: center 30%;
+            }
         }
 
         /* Slideshow styles removed */
