@@ -1327,11 +1327,17 @@
         /* On mobile: icon-only, compact, tucked to the edge */
         @media (max-width: 768px) {
             #pageReturnBtn {
-                padding: 10px 12px;
+                padding: 8px 10px;
                 gap: 0;
             }
             #pageReturnBtn .return-btn__label {
                 display: none;
+            }
+        }
+
+        @media (max-width: 640px) {
+            #pageReturnBtn {
+                padding: 7px 9px;
             }
         }
         
@@ -1586,7 +1592,7 @@
     </nav>
     
     <!-- Page Return Button (for navigation from external pages) -->
-    <div style="position: fixed; top: 100px; left: 12px; z-index: 999;">
+    <div style="position: fixed; top: 100px; left: 6px; z-index: 999;">
         <button class="return-btn" id="pageReturnBtn" aria-label="Return to previous page">
             <i class="fa-solid fa-arrow-left"></i>
             Return
@@ -1675,7 +1681,7 @@
                     </div>
                 </div>
             </div>
-                        <form class="contact__form" id="contactForm" action="https://formspree.io/f/mrejblwy" method="POST">
+                        <form class="contact__form" id="contactForm" action="https://formspree.io/f/mzdojebl" method="POST">
                 <div class="form__group">
                     <label class="form__label" for="formName">Name</label>
                     <input type="text" id="formName" name="name" class="form__input" placeholder="Your name" required>
